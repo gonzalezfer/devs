@@ -151,8 +151,20 @@
         "url": "https://www.linkedin.com/in/samuel-moscoso-b2b424286/"
       }
     ]
+  },
+  {
+    "nombre": "Nelson Xiori",
+    "descripcion": "Desarrollador Frontend",
+    "foto": "img/default_profile.png",
+    "banner": "img/default_banner.png",
+    "grupos": [
+      "HTML, CSS y JS"
+    ],
+    "links": [
+      {
+        "tipo": "github",
+        "url": "https://github.com/xiori-zenzenaty"
+      }
+    ]
   }
-
 ]
-
-
