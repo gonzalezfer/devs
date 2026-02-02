@@ -709,33 +709,133 @@
             color: var(--color-primary);
         }
 
-        /* === SWIPER === */
-        .swiper {
-            padding: 20px 0 50px !important;
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+
+            /* Ajustes Generales */
+            .container {
+                padding: 0 16px;
+            }
+
+            h1,
+            h2 {
+                line-height: 1.2;
+            }
+
+            /* Navbar */
+            .navbar {
+                padding: 12px 0;
+            }
+
+            .navbar-content {
+                gap: 16px;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .nav-socials {
+                gap: 12px;
+            }
+
+            /* Hero */
+            .hero {
+                padding-top: 120px;
+                padding-bottom: 64px;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+                margin-bottom: 32px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .hero-cta .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-stats {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 24px;
+                padding: 24px;
+                margin-top: 48px;
+            }
+
+            .stat {
+                min-width: 100px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            /* Tabs */
+            .tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 12px;
+                margin-bottom: 32px;
+                -webkit-overflow-scrolling: touch;
+                /* Smooth scrolling iOS */
+            }
+
+            .tab {
+                white-space: nowrap;
+                flex-shrink: 0;
+                font-size: 0.9rem;
+                padding: 10px 16px;
+                min-height: 40px;
+            }
+
+            /* Grids */
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+                /* Una sola columna en móvil */
+                gap: 16px;
+            }
+
+            /* Footer */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .footer-brand p {
+                margin: 16px auto 0;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
         }
 
-        .swiper-pagination-bullet {
-            background: var(--color-border);
-            opacity: 1;
-        }
+        @media (min-width: 769px) {
 
-        .swiper-pagination-bullet-active {
-            background: var(--color-primary);
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: var(--color-text) !important;
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border);
-            width: 44px !important;
-            height: 44px !important;
-            border-radius: var(--radius);
-        }
-
-        .swiper-button-next::after,
-        .swiper-button-prev::after {
-            font-size: 16px !important;
+            /* Asegurar que el grid-3 funcione en desktop si no está definido */
+            .grid-3 {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
         }
 
         /* === LOADING === */
