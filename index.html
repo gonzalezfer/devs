@@ -131,15 +131,7 @@
             display: none;
         }
 
-        #cursor-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
+        #cursor-canvas { display: none; } /* Removed for a cleaner look */
 
         /* === HERO AURA === */
         /* Removed Hero Aura for a cleaner look */
@@ -164,12 +156,12 @@
 
         .loader-w-colosal {
             font-family: 'Mrs Sheppards', cursive;
-            font-size: 150vw;
+            font-size: clamp(100vw, 150vw, 150vh);
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: rgba(212, 175, 55, 0.08);
+            color: rgba(255, 215, 0, 0.05);
             background: linear-gradient(135deg, 
                 transparent 40%, 
                 rgba(255, 255, 255, 0.2) 50%, 
@@ -185,7 +177,7 @@
         }
 
         @media (pointer: fine) {
-            #magic-cursor, #magic-cursor-outline, #cursor-canvas { display: block; }
+            #magic-cursor, #magic-cursor-outline { display: block; }
             body { cursor: none; }
             a, button, .card, .tab, .faq-question { cursor: none; }
         }
@@ -859,85 +851,89 @@
         /* === RESPONSIVE DESIGN === */
         @media (max-width: 768px) {
             .container {
-                padding: 0 16px;
+                padding: 0 20px;
             }
 
             .navbar {
-                padding: 12px 0;
+                padding: 16px 0;
+                background: rgba(10, 10, 11, 0.95);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid rgba(255, 215, 0, 0.05);
             }
 
             .logo {
-                font-size: 1.1rem;
+                font-size: 1.15rem;
             }
 
             .hero {
-                padding-top: 100px;
-                padding-bottom: 60px;
+                padding-top: 140px;
+                padding-bottom: 80px;
                 text-align: center;
+                background-image: radial-gradient(circle at 50% 0%, rgba(255, 215, 0, 0.08) 0%, transparent 70%);
             }
 
             .hero-title {
-                font-size: 2.2rem;
+                font-size: 2.75rem;
+                letter-spacing: -0.06em;
             }
 
             .hero-description {
-                font-size: 1rem;
-                margin-bottom: 32px;
+                font-size: 1.1rem;
+                margin-bottom: 40px;
+                opacity: 0.8;
             }
 
             .hero-cta {
                 flex-direction: column;
-                gap: 12px;
+                gap: 16px;
                 width: 100%;
             }
 
             .hero-cta .btn {
                 width: 100%;
+                padding: 18px;
                 justify-content: center;
             }
 
             .hero-stats {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 32px;
-                padding: 32px 0 0;
-                margin-top: 48px;
+                gap: 24px;
+                padding-top: 40px;
+                margin-top: 40px;
             }
 
             .stat {
-                min-width: 120px;
+                flex: 1 1 40%;
             }
 
             .stat-number {
-                font-size: 2rem;
+                font-size: 2.25rem;
             }
 
-            .tabs {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding-bottom: 2px;
-                margin-bottom: 32px;
-                -webkit-overflow-scrolling: touch;
+            .section {
+                padding: 64px 0;
             }
 
-            .tab {
-                padding: 12px 16px;
-                font-size: 0.9rem;
+            .section-title {
+                font-size: 2.25rem;
             }
 
             .grid-3 {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 32px 24px;
             }
 
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 48px;
                 text-align: center;
             }
 
             .footer-brand p {
+                max-width: 100%;
                 margin: 16px auto 0;
             }
 
@@ -983,7 +979,6 @@
     <!-- Modern Tech Cursor -->
     <div id="magic-cursor"></div>
     <div id="magic-cursor-outline"></div>
-    <canvas id="cursor-canvas"></canvas>
 
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
@@ -1306,54 +1301,6 @@
                 observer.observe(el);
             });
 
-            // === CANVAS MAGIC TRAIL ===
-            const canvas = document.getElementById('cursor-canvas');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            class Particle {
-                constructor(x, y) {
-                    this.x = x;
-                    this.y = y;
-                    this.size = Math.random() * 5 + 1;
-                    this.speedX = Math.random() * 3 - 1.5;
-                    this.speedY = Math.random() * 3 - 1.5;
-                    this.color = `rgba(212, 175, 55, ${Math.random() * 0.8 + 0.2})`;
-                    this.life = 1;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    this.life -= 0.02;
-                    if (this.size > 0.1) this.size -= 0.05;
-                }
-                draw() {
-                    ctx.fillStyle = this.color;
-                    ctx.globalAlpha = this.life;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            function handleParticles() {
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                    if (particles[i].life <= 0) {
-                        particles.splice(i, 1);
-                        i--;
-                    }
-                }
-            }
-
             // === MODERN TECH CURSOR LERP ===
             const cursor = document.getElementById('magic-cursor');
             const cursorOutline = document.getElementById('magic-cursor-outline');
@@ -1364,24 +1311,9 @@
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
-
-                // Digital dust trail
-                for (let i = 0; i < 1; i++) {
-                    particles.push(new Particle(e.clientX, e.clientY));
-                }
-            });
-
-            // Interaction burst
-            document.addEventListener('mousedown', (e) => {
-                for (let i = 0; i < 15; i++) {
-                    particles.push(new Particle(e.clientX, e.clientY));
-                }
             });
 
             function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                handleParticles();
-
                 // Smooth lerp for ring
                 cursorX = mouseX;
                 cursorY = mouseY;
@@ -1400,14 +1332,10 @@
             document.querySelectorAll('a, button, .card, .tab, .faq-question').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.style.transform = 'scale(1.5)';
-                    cursorOutline.style.width = '50px';
-                    cursorOutline.style.height = '50px';
+                    cursorOutline.style.width = '46px';
+                    cursorOutline.style.height = '46px';
                     cursorOutline.style.borderColor = 'var(--color-primary)';
-                    cursorOutline.style.background = 'rgba(255, 215, 0, 0.05)';
-                    
-                    for (let i = 0; i < 3; i++) {
-                        particles.push(new Particle(mouseX, mouseY));
-                    }
+                    cursorOutline.style.background = 'rgba(255, 215, 0, 0.08)';
                 });
                 el.addEventListener('mouseleave', () => {
                     cursor.style.transform = 'scale(1)';
