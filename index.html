@@ -9,21 +9,26 @@
         content="Únete a World Wide Dev's, la comunidad de programación más grande de WhatsApp en Latinoamérica. Aprende. Enseña. Inspira.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@400;500;600;700;800&family=Mrs+Sheppards&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="logo.enc">
 
     <style>
         :root {
-            --color-primary: #9A96FF;
-            --color-primary-light: #B8B4FF;
-            --color-primary-dark: #7A76E0;
-            --color-bg: #09090B;
-            --color-bg-secondary: #18181B;
-            --color-surface: #27272A;
-            --color-border: #3F3F46;
-            --color-text: #FAFAFA;
-            --color-text-secondary: #A1A1AA;
-            --radius: 12px;
+            /* Paleta Tech-Gold (Programación Moderna) */
+            --color-primary: #FFD700; /* Oro Puro como acento */
+            --color-primary-light: #FFE44D;
+            --color-primary-dark: #B8860B;
+            --color-accent: #FFFFFF;
+            --color-bg: #0A0A0B; /* Negro Tech profundo */
+            --color-bg-secondary: #141416;
+            --color-surface: #1E1E21;
+            --color-border: rgba(255, 215, 0, 0.1);
+            --color-text: #F9FAFB;
+            --color-text-secondary: #9CA3AF;
+            --radius: 16px;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
         }
 
         * {
@@ -32,16 +37,214 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-main);
             background-color: var(--color-bg);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
             color: var(--color-text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* === MAGIC ANIMATIONS === */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .magic-particle {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            box-shadow: 0 0 10px var(--color-primary-light);
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes goldShimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, 
+                var(--color-primary-dark), 
+                var(--color-primary-light), 
+                #FFF, 
+                var(--color-primary-light), 
+                var(--color-primary-dark)
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShimmer 4s infinite linear;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* === MODERN TECH CURSOR === */
+        #magic-cursor {
+            width: 6px;
+            height: 6px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: none;
+        }
+
+        #magic-cursor-outline {
+            width: 30px;
+            height: 30px;
+            border: 1.5px solid rgba(255, 215, 0, 0.4);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: none;
+        }
+
+        #cursor-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* === HERO AURA === */
+        /* Removed Hero Aura for a cleaner look */
+        .hero-aura { display: none; }
+
+        @keyframes auraPulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
+        }
+
+        .cursor-trail { display: none; } /* Removed in favor of canvas */
+
+        @keyframes trailFade {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        @keyframes reflection {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .loader-w-colosal {
+            font-family: 'Mrs Sheppards', cursive;
+            font-size: 150vw;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(212, 175, 55, 0.08);
+            background: linear-gradient(135deg, 
+                transparent 40%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 60%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: reflection 4s infinite linear;
+            z-index: -1;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        @media (pointer: fine) {
+            #magic-cursor, #magic-cursor-outline, #cursor-canvas { display: block; }
+            body { cursor: none; }
+            a, button, .card, .tab, .faq-question { cursor: none; }
+        }
+
+        /* === PRELOADER === */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--color-bg);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px var(--color-primary)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 30px var(--color-primary-light)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--color-primary)); }
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--color-primary-light), transparent);
+            animation: loading 2s infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        h1, h2, h3, .logo {
+            font-family: var(--font-main);
+            font-weight: 800;
+            letter-spacing: -0.03em;
         }
 
         /* === LAYOUT === */
@@ -57,16 +260,18 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 100;
-            padding: 16px 0;
-            background: rgba(9, 9, 11, 0.8);
-            backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 20px 0;
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             border-bottom: 1px solid transparent;
-            transition: all 0.3s ease;
         }
 
         .navbar.scrolled {
-            border-color: var(--color-border);
+            padding: 12px 0;
+            background: rgba(10, 10, 11, 0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
         }
 
         .navbar-content {
@@ -82,18 +287,19 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            letter-spacing: -0.02em;
         }
 
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-            border-radius: 8px;
+            font-family: 'Mrs Sheppards', cursive;
+            font-size: 38px;
+            color: var(--color-primary-light);
+            line-height: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            margin-right: 5px;
         }
 
         .nav-links {
@@ -107,11 +313,28 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: color 0.3s;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-primary-light), transparent);
+            transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 0 10px var(--color-primary-light);
         }
 
         .nav-link:hover {
-            color: var(--color-text);
+            color: var(--color-primary-light);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .nav-socials {
@@ -122,11 +345,31 @@
         .nav-social {
             color: var(--color-text-secondary);
             font-size: 1.1rem;
-            transition: color 0.2s;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
         }
 
         .nav-social:hover {
-            color: var(--color-primary);
+            color: var(--color-primary-light);
+            transform: translateY(-3px) scale(1.2);
+            filter: drop-shadow(0 0 10px var(--color-primary-light));
+        }
+
+        .nav-social::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            transition: width 0.4s, height 0.4s;
+            z-index: -1;
+        }
+
+        .nav-social:hover::before {
+            width: 40px;
+            height: 40px;
         }
 
         /* === HERO === */
@@ -147,7 +390,8 @@
             transform: translateX(-50%);
             width: 800px;
             height: 600px;
-            background: radial-gradient(ellipse, rgba(154, 150, 255, 0.15), transparent 70%);
+            background: radial-gradient(ellipse, rgba(255, 215, 0, 0.08), transparent 70%);
+            /* Oro suave */
             pointer-events: none;
         }
 
@@ -159,39 +403,42 @@
             z-index: 1;
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            color: var(--color-text-secondary);
-            margin-bottom: 32px;
+
+
+        .hero-title {
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.05em;
+            color: #FFF;
+            animation: heroReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .hero-badge i {
+        .hero-title span {
             color: var(--color-primary);
         }
 
-        .hero-title {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
+        @keyframes heroReveal {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); filter: blur(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
         }
 
         .hero-title .accent {
-            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+            display: block;
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 0.7em;
+            margin-top: 10px;
+            background: linear-gradient(to right, var(--color-primary-light), #FFF, var(--color-primary-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .hero-description {
+            font-family: var(--font-accent);
+            font-style: italic;
             font-size: 1.25rem;
             color: var(--color-text-secondary);
             max-width: 600px;
@@ -224,29 +471,47 @@
         .btn-primary {
             background: var(--color-primary);
             color: #000;
+            font-weight: 700;
+            padding: 16px 36px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(255, 215, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
+
+
         .btn-primary:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            background: #FFF;
+            box-shadow: 0 12px 24px rgba(255, 215, 0, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--color-text);
-            border: 1px solid var(--color-border);
+            color: var(--color-primary);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s;
         }
 
         .btn-secondary:hover {
-            background: var(--color-bg-secondary);
-            border-color: var(--color-text-secondary);
+            background: rgba(255, 215, 0, 0.05);
+            border-color: var(--color-primary);
+            color: #FFF;
         }
 
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 48px;
+            gap: 64px;
             flex-wrap: wrap;
+            border-top: 1px solid var(--color-border);
+            padding-top: 48px;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .stat {
@@ -254,14 +519,19 @@
         }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--color-text);
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            letter-spacing: -0.05em;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--color-text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 8px;
         }
 
         /* === SECTIONS === */
@@ -270,52 +540,57 @@
         }
 
         .section-header {
-            margin-bottom: 48px;
+            margin-bottom: 64px;
+            text-align: center;
         }
 
         .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 12px;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+            letter-spacing: -0.04em;
+            color: #FFF;
         }
 
         .section-subtitle {
             color: var(--color-text-secondary);
             font-size: 1.1rem;
             max-width: 600px;
+            margin: 0 auto;
         }
 
         /* === TABS === */
         .tabs {
             display: flex;
-            gap: 8px;
+            gap: 12px;
             margin-bottom: 48px;
             overflow-x: auto;
             padding-bottom: 8px;
+            border-bottom: 1px solid var(--color-border);
         }
 
         .tab {
-            padding: 12px 24px;
+            padding: 14px 20px;
             background: transparent;
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius);
+            border: none;
+            border-bottom: 2px solid transparent;
             color: var(--color-text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
+            margin-bottom: -1px;
         }
 
         .tab:hover {
-            background: var(--color-bg-secondary);
             color: var(--color-text);
         }
 
         .tab.active {
-            background: var(--color-primary);
-            border-color: var(--color-primary);
-            color: #000;
+            color: var(--color-accent);
+            border-bottom-color: var(--color-accent);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
         }
 
         /* === CARDS === */
@@ -329,171 +604,36 @@
         }
 
         .card {
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: var(--color-primary);
-            transform: translateY(-4px);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            object-fit: cover;
-        }
-
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .card-description {
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .card-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--color-primary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: gap 0.2s;
-        }
-
-        .card-link:hover {
-            gap: 12px;
-        }
-
-        /* === ADMIN CARD === */
-        .admin-card {
-            text-align: center;
-            padding: 32px 24px;
-        }
-
-        .admin-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 16px;
-            border: 3px solid var(--color-border);
-        }
-
-        .admin-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .admin-role {
-            color: var(--color-text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 16px;
-        }
-
-        .admin-tags {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .admin-tag {
-            padding: 4px 12px;
-            background: rgba(154, 150, 255, 0.1);
-            border: 1px solid rgba(154, 150, 255, 0.2);
-            border-radius: 100px;
-            font-size: 0.75rem;
-            color: var(--color-primary-light);
-        }
-
-        .admin-socials {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-        }
-
-        .admin-social {
-            color: var(--color-text-secondary);
-            font-size: 1.1rem;
-            transition: color 0.2s;
-        }
-
-        .admin-social:hover {
-            color: var(--color-primary);
-        }
-
-        /* === SEARCH === */
-        .search-wrapper {
-            position: relative;
-            max-width: 400px;
-            margin-bottom: 32px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 14px 16px 14px 48px;
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius);
-            color: var(--color-text);
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .search-input::placeholder {
-            color: var(--color-text-secondary);
-        }
-
-        .search-input:focus {
-            border-color: var(--color-primary);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--color-text-secondary);
-        }
-
-
-        /* === CARDS === */
-        .card {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: var(--radius);
-            padding: 24px;
-            transition: all 0.3s ease;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             height: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--color-primary);
+            border-color: var(--color-primary-light);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card-header {
@@ -506,7 +646,7 @@
         .card-icon {
             width: 48px;
             height: 48px;
-            border-radius: 12px;
+            border-radius: 8px;
             object-fit: cover;
         }
 
@@ -514,7 +654,6 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--color-text);
-            /* Blanco */
             line-height: 1.3;
         }
 
@@ -527,11 +666,16 @@
 
         .card-link {
             font-weight: 500;
-            color: var(--color-primary);
+            color: var(--color-primary-light);
             font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: gap 0.2s;
+        }
+
+        .card-link:hover {
+            gap: 12px;
         }
 
         /* === ADMIN CARDS === */
@@ -557,9 +701,10 @@
         }
 
         .admin-role {
-            color: var(--color-primary);
+            color: var(--color-primary-light);
             font-size: 0.9rem;
             margin-bottom: 16px;
+            font-weight: 500;
         }
 
         .admin-tags {
@@ -571,22 +716,23 @@
         }
 
         .admin-tag {
-            background: var(--color-bg-secondary);
+            background: var(--color-bg);
             border: 1px solid var(--color-border);
-            padding: 4px 10px;
-            border-radius: 99px;
+            padding: 4px 12px;
+            border-radius: 4px;
             font-size: 0.75rem;
             color: var(--color-text-secondary);
+            font-weight: 500;
         }
 
         .admin-socials {
             display: flex;
-            gap: 12px;
+            gap: 16px;
         }
 
         .admin-social {
             color: var(--color-text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             transition: color 0.2s;
         }
 
@@ -605,7 +751,7 @@
             background: transparent;
             border: none;
             color: var(--color-text);
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 500;
             text-align: left;
             cursor: pointer;
@@ -640,6 +786,7 @@
             border-top: 1px solid var(--color-border);
             padding: 64px 0 32px;
             margin-top: 64px;
+            background: var(--color-surface);
         }
 
         .footer-grid {
@@ -660,7 +807,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--color-text-secondary);
+            color: var(--color-text);
             margin-bottom: 16px;
         }
 
@@ -678,7 +825,7 @@
         }
 
         .footer-link:hover {
-            color: var(--color-text);
+            color: var(--color-primary-light);
         }
 
         .footer-bottom {
@@ -706,49 +853,31 @@
         }
 
         .footer-social:hover {
-            color: var(--color-primary);
+            color: var(--color-primary-light);
         }
-
 
         /* === RESPONSIVE DESIGN === */
         @media (max-width: 768px) {
-
-            /* Ajustes Generales */
             .container {
                 padding: 0 16px;
             }
 
-            h1,
-            h2 {
-                line-height: 1.2;
-            }
-
-            /* Navbar */
             .navbar {
                 padding: 12px 0;
-            }
-
-            .navbar-content {
-                gap: 16px;
             }
 
             .logo {
                 font-size: 1.1rem;
             }
 
-            .nav-socials {
-                gap: 12px;
-            }
-
-            /* Hero */
             .hero {
-                padding-top: 120px;
-                padding-bottom: 64px;
+                padding-top: 100px;
+                padding-bottom: 60px;
                 text-align: center;
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
             .hero-description {
@@ -771,46 +900,37 @@
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 24px;
-                padding: 24px;
+                gap: 32px;
+                padding: 32px 0 0;
                 margin-top: 48px;
             }
 
             .stat {
-                min-width: 100px;
+                min-width: 120px;
             }
 
             .stat-number {
                 font-size: 2rem;
             }
 
-            /* Tabs */
             .tabs {
                 justify-content: flex-start;
                 overflow-x: auto;
-                padding-bottom: 12px;
+                padding-bottom: 2px;
                 margin-bottom: 32px;
                 -webkit-overflow-scrolling: touch;
-                /* Smooth scrolling iOS */
             }
 
             .tab {
-                white-space: nowrap;
-                flex-shrink: 0;
+                padding: 12px 16px;
                 font-size: 0.9rem;
-                padding: 10px 16px;
-                min-height: 40px;
             }
 
-            /* Grids */
-            .grid-3,
-            .grid-2 {
+            .grid-3 {
                 grid-template-columns: 1fr;
-                /* Una sola columna en móvil */
                 gap: 16px;
             }
 
-            /* Footer */
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -829,8 +949,6 @@
         }
 
         @media (min-width: 769px) {
-
-            /* Asegurar que el grid-3 funcione en desktop si no está definido */
             .grid-3 {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -853,60 +971,30 @@
         .content-section.hidden {
             display: none;
         }
-
-        /* === RESPONSIVE === */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 100px 0 60px;
-            }
-
-            .hero-stats {
-                gap: 32px;
-            }
-
-            .stat-number {
-                font-size: 2rem;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .tabs {
-                gap: 4px;
-            }
-
-            .tab {
-                padding: 10px 16px;
-                font-size: 0.8rem;
-            }
-        }
     </style>
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-w-colosal">W</div>
+    </div>
+
+    <!-- Modern Tech Cursor -->
+    <div id="magic-cursor"></div>
+    <div id="magic-cursor-outline"></div>
+    <canvas id="cursor-canvas"></canvas>
+
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="navbar-content">
                 <a href="#" class="logo">
-                    <span class="logo-icon"><i class="fas fa-code"></i></span>
-                    World Wide Dev's
+                    <div class="logo-icon">W</div>
                 </a>
 
-
                 <div class="nav-socials">
-                    <a href="https://whatsapp.com/channel/0029VaDgLlM2kNFqDttPUZ1E" target="_blank" class="nav-social">
+                    <a href="https://chat.whatsapp.com/BbttcM8u6hO9jFbUELi1YF" target="_blank" class="nav-social">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="https://www.facebook.com/profile.php?id=61574892055228" target="_blank" class="nav-social">
@@ -922,40 +1010,33 @@
 
     <!-- Hero -->
     <section class="hero">
+        <div class="hero-aura"></div>
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>Comunidad de WhatsApp</span>
-                </div>
-                <h1 class="hero-title">
-                    Aprende. Enseña.<br><span class="accent">Inspira.</span>
+                <h1 class="hero-title shimmer">
+                    Domina el Código<br><span class="accent">Alcanza la Gloria</span>
                 </h1>
-                <p class="hero-description">
-                    Únete a la comunidad de programación más grande de Latinoamérica.
-                    Conecta con miles de desarrolladores y lleva tus habilidades al siguiente nivel.
+                <p class="hero-description reveal">
+                    Únete a la orden de desarrolladores más prestigiosa de Latinoamérica.
+                    Sabiduría compartida, poder colectivo y un legado que perdurará.
                 </p>
                 <div class="hero-cta">
-                    <a href="https://whatsapp.com/channel/0029VaDgLlM2kNFqDttPUZ1E" target="_blank"
-                        class="btn btn-primary">
+                    <a href="https://chat.whatsapp.com/BbttcM8u6hO9jFbUELi1YF" target="_blank" class="btn btn-primary">
                         <i class="fab fa-whatsapp"></i> Unirse a la comunidad
-                    </a>
-                    <a href="#grupos" class="btn btn-secondary">
-                        Ver grupos <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="stat-number" id="stat-grupos">0</div>
-                        <div class="stat-label">Grupos Activos</div>
-                    </div>
-                    <div class="stat">
                         <div class="stat-number" id="stat-miembros">1000+</div>
-                        <div class="stat-label">Miembros</div>
+                        <div class="stat-label">Miembros Activos</div>
                     </div>
                     <div class="stat">
                         <div class="stat-number" id="stat-recursos">0</div>
-                        <div class="stat-label">Recursos</div>
+                        <div class="stat-label">Recursos Compartidos</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="stat-eventos">0</div>
+                        <div class="stat-label">Eventos</div>
                     </div>
                 </div>
             </div>
@@ -963,70 +1044,31 @@
     </section>
 
     <!-- Main Content -->
-    <main id="grupos">
+    <main id="comunidad">
         <div class="container">
             <!-- Tabs -->
             <div class="tabs">
-                <button class="tab active" data-tab="grupos">
-                    <i class="fas fa-users"></i> Grupos
+                <button class="tab active" data-tab="recursos">
+                    <i class="fas fa-book"></i> Recursos
                 </button>
                 <button class="tab" data-tab="admins">
-                    <i class="fas fa-user-shield"></i> Admins
-                </button>
-                <button class="tab" data-tab="recursos">
-                    <i class="fas fa-book"></i> Recursos
+                    <i class="fas fa-user-shield"></i> Administradores
                 </button>
                 <button class="tab" data-tab="eventos">
                     <i class="fas fa-calendar"></i> Eventos
                 </button>
                 <button class="tab" data-tab="faqs">
-                    <i class="fas fa-question-circle"></i> FAQs
+                    <i class="fas fa-question-circle"></i> Preguntas Frecuentes
                 </button>
             </div>
 
-            <!-- Grupos Section -->
-            <section id="content-grupos" class="content-section section">
-                <div class="section-header">
-                    <h2 class="section-title">Grupos de la Comunidad</h2>
-                    <p class="section-subtitle">
-                        Explora y únete a nuestros grupos de WhatsApp para conectar con desarrolladores como tú.
-                    </p>
-                </div>
-
-                <div class="search-wrapper">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="search" id="search-grupos" placeholder="Buscar grupos..." class="search-input">
-                </div>
-
-                <div id="grupos-grid" class="grid grid-3">
-                    <div class="loading" id="grupos-loading">
-                        <i class="fas fa-spinner fa-spin"></i> Cargando grupos...
-                    </div>
-                </div>
-            </section>
-
-            <!-- Admins Section -->
-            <section id="content-admins" class="content-section section hidden">
-                <div class="section-header">
-                    <h2 class="section-title">Administradores</h2>
-                    <p class="section-subtitle">
-                        El equipo que mantiene viva y ordenada la comunidad.
-                    </p>
-                </div>
-
-                <div id="admins-grid" class="grid grid-3">
-                    <div class="loading" id="admins-loading">
-                        <i class="fas fa-spinner fa-spin"></i> Cargando admins...
-                    </div>
-                </div>
-            </section>
-
             <!-- Recursos Section -->
-            <section id="content-recursos" class="content-section section hidden">
+            <section id="content-recursos" class="content-section section">
                 <div class="section-header">
                     <h2 class="section-title">Recursos de la Comunidad</h2>
                     <p class="section-subtitle">
-                        Carpetas de Drive con material de estudio, cursos y herramientas útiles.
+                        Accede a material de estudio, repositorios, libros y herramientas útiles compartidas por los
+                        miembros.
                     </p>
                 </div>
 
@@ -1037,12 +1079,28 @@
                 </div>
             </section>
 
+            <!-- Admins Section -->
+            <section id="content-admins" class="content-section section hidden">
+                <div class="section-header">
+                    <h2 class="section-title">Equipo Administrativo</h2>
+                    <p class="section-subtitle">
+                        El equipo de profesionales y entusiastas que mantienen viva y organizada la comunidad.
+                    </p>
+                </div>
+
+                <div id="admins-grid" class="grid grid-3">
+                    <div class="loading" id="admins-loading">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando administradores...
+                    </div>
+                </div>
+            </section>
+
             <!-- Eventos Section -->
             <section id="content-eventos" class="content-section section hidden">
                 <div class="section-header">
                     <h2 class="section-title">Próximos Eventos</h2>
                     <p class="section-subtitle">
-                        Workshops, charlas y hackathons de la comunidad.
+                        Participa en nuestros workshops, charlas técnicas, mentorías y hackathons.
                     </p>
                 </div>
 
@@ -1058,7 +1116,7 @@
                 <div class="section-header">
                     <h2 class="section-title">Preguntas Frecuentes</h2>
                     <p class="section-subtitle">
-                        Encuentra respuestas a las dudas más comunes.
+                        Resuelve rápidamente tus dudas sobre el funcionamiento y las reglas de la comunidad.
                     </p>
                 </div>
 
@@ -1077,20 +1135,27 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="#" class="logo">
-                        <span class="logo-icon"><i class="fas fa-code"></i></span>
-                        World Wide Dev's
+                        <div class="logo-icon" style="font-size: 42px; margin-right: 0;">W</div>
                     </a>
-                    <p>
-                        La comunidad de programación más grande de Latinoamérica.
+                    <p style="margin-top: 15px;">
+                        La comunidad de programación de mayor crecimiento en Latinoamérica.
                         Aprende. Enseña. Inspira.
                     </p>
                 </div>
 
+                <div>
+                    <h4 class="footer-title">Comunidad</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Sobre Nosotros</a>
+                        <a href="#" class="footer-link">Código de Conducta</a>
+                        <a href="#" class="footer-link">Aportar Recursos</a>
+                    </div>
+                </div>
 
                 <div>
-                    <h4 class="footer-title">Redes</h4>
+                    <h4 class="footer-title">Redes Sociales</h4>
                     <div class="footer-links">
-                        <a href="https://whatsapp.com/channel/0029VaDgLlM2kNFqDttPUZ1E" target="_blank"
+                        <a href="https://chat.whatsapp.com/BbttcM8u6hO9jFbUELi1YF" target="_blank"
                             class="footer-link">WhatsApp</a>
                         <a href="https://www.facebook.com/profile.php?id=61574892055228" target="_blank"
                             class="footer-link">Facebook</a>
@@ -1099,10 +1164,9 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="footer-copy">© 2025 World Wide Dev's. Todos los derechos reservados.</p>
+                <p class="footer-copy">© 2026 World Wide Dev's. Todos los derechos reservados.</p>
                 <div class="footer-socials">
-                    <a href="https://whatsapp.com/channel/0029VaDgLlM2kNFqDttPUZ1E" target="_blank"
-                        class="footer-social">
+                    <a href="https://chat.whatsapp.com/BbttcM8u6hO9jFbUELi1YF" target="_blank" class="footer-social">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="https://www.facebook.com/profile.php?id=61574892055228" target="_blank"
@@ -1123,7 +1187,11 @@
             // === NAVBAR SCROLL ===
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
-                navbar.classList.toggle('scrolled', window.scrollY > 50);
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
             });
 
             // === TABS ===
@@ -1144,7 +1212,6 @@
             });
 
             // === NAV LINKS TO TABS ===
-            // === NAVIGATION & TABS LOGIC ===
             document.querySelectorAll('a[href^="#"]').forEach(link => {
                 link.addEventListener('click', (e) => {
                     const href = link.getAttribute('href');
@@ -1158,11 +1225,11 @@
                         targetTab.click();
                         // Scroll slightly above the tabs for better visibility
                         const container = document.querySelector('.container');
-                        const tabs = document.querySelector('.tabs');
-                        if (tabs) {
+                        const tabsContainer = document.querySelector('.tabs');
+                        if (tabsContainer) {
                             const offset = 80; // Navbar height approx
                             const bodyRect = document.body.getBoundingClientRect().top;
-                            const elementRect = tabs.getBoundingClientRect().top;
+                            const elementRect = tabsContainer.getBoundingClientRect().top;
                             const elementPosition = elementRect - bodyRect;
                             const offsetPosition = elementPosition - offset;
 
@@ -1182,6 +1249,11 @@
 
                 const isPlus = String(finalValue).includes('+');
                 const numericValue = parseInt(String(finalValue).replace(/[^0-9]/g, ''));
+                if (isNaN(numericValue) || numericValue === 0) {
+                    element.textContent = finalValue;
+                    return;
+                }
+
                 const startTime = performance.now();
 
                 function updateCounter(currentTime) {
@@ -1204,10 +1276,10 @@
 
 
             // === LOAD DATA FROM LOCAL JSON FILES ===
-
             async function fetchData(action) {
                 try {
                     const response = await fetch(action + '.json');
+                    if (!response.ok) throw new Error('Network response was not ok');
                     return await response.json();
                 } catch (error) {
                     console.error('Error loading ' + action + '.json', error);
@@ -1215,33 +1287,241 @@
                 }
             }
 
-            // Load Grupos
-            fetchData('grupos').then(grupos => {
-                const grid = document.getElementById('grupos-grid');
+            // === REVEAL ON SCROLL ===
+            const observerOptions = {
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Se aplica a elementos que no sean el hero para evitar que se quede invisible al inicio
+            document.querySelectorAll('.reveal:not(.hero-content), .card, .stat, .section-header').forEach(el => {
+                el.classList.add('reveal');
+                observer.observe(el);
+            });
+
+            // === CANVAS MAGIC TRAIL ===
+            const canvas = document.getElementById('cursor-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = Math.random() * 5 + 1;
+                    this.speedX = Math.random() * 3 - 1.5;
+                    this.speedY = Math.random() * 3 - 1.5;
+                    this.color = `rgba(212, 175, 55, ${Math.random() * 0.8 + 0.2})`;
+                    this.life = 1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life -= 0.02;
+                    if (this.size > 0.1) this.size -= 0.05;
+                }
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = this.life;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function handleParticles() {
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].life <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+
+            // === MODERN TECH CURSOR LERP ===
+            const cursor = document.getElementById('magic-cursor');
+            const cursorOutline = document.getElementById('magic-cursor-outline');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let outlineX = 0, outlineY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Digital dust trail
+                for (let i = 0; i < 1; i++) {
+                    particles.push(new Particle(e.clientX, e.clientY));
+                }
+            });
+
+            // Interaction burst
+            document.addEventListener('mousedown', (e) => {
+                for (let i = 0; i < 15; i++) {
+                    particles.push(new Particle(e.clientX, e.clientY));
+                }
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                handleParticles();
+
+                // Smooth lerp for ring
+                cursorX = mouseX;
+                cursorY = mouseY;
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+
+                cursor.style.left = cursorX - 3 + 'px';
+                cursor.style.top = cursorY - 3 + 'px';
+                cursorOutline.style.left = outlineX - 15 + 'px';
+                cursorOutline.style.top = outlineY - 15 + 'px';
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            document.querySelectorAll('a, button, .card, .tab, .faq-question').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'scale(1.5)';
+                    cursorOutline.style.width = '50px';
+                    cursorOutline.style.height = '50px';
+                    cursorOutline.style.borderColor = 'var(--color-primary)';
+                    cursorOutline.style.background = 'rgba(255, 215, 0, 0.05)';
+                    
+                    for (let i = 0; i < 3; i++) {
+                        particles.push(new Particle(mouseX, mouseY));
+                    }
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'scale(1)';
+                    cursorOutline.style.width = '30px';
+                    cursorOutline.style.height = '30px';
+                    cursorOutline.style.borderColor = 'rgba(255, 215, 0, 0.4)';
+                    cursorOutline.style.background = 'transparent';
+                });
+            });
+
+            // === PRELOADER HIDE ===
+            const hidePreloader = () => {
+                setTimeout(() => {
+                    const preloader = document.getElementById('preloader');
+                    if (preloader) preloader.classList.add('hidden');
+                }, 1000);
+            };
+
+            if (document.readyState === 'complete') {
+                hidePreloader();
+            } else {
+                window.addEventListener('load', hidePreloader);
+            }
+
+            // === 3D TILT EFFECT ===
+            function applyTilt(el) {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 15;
+                    const rotateY = (centerX - x) / 15;
+                    
+                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = `perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)`;
+                });
+            }
+
+            // Apply tilt to cards loaded dynamically
+            const cardObserver = new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.classList && node.classList.contains('card')) {
+                            applyTilt(node);
+                        }
+                    });
+                });
+            });
+            
+            const grids = ['recursos-grid', 'admins-grid', 'eventos-grid'];
+            grids.forEach(id => {
+                const target = document.getElementById(id);
+                if (target) cardObserver.observe(target, { childList: true });
+            });
+
+            // === MAGIC PARTICLES ===
+            function createParticles() {
+                const particleContainer = document.createElement('div');
+                particleContainer.id = 'magic-particles';
+                document.body.appendChild(particleContainer);
+
+                for (let i = 0; i < 40; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'magic-particle';
+                    
+                    const size = Math.random() * 3 + 1 + 'px';
+                    particle.style.width = size;
+                    particle.style.height = size;
+                    
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    particle.style.top = Math.random() * 100 + 'vh';
+                    particle.style.animationDelay = Math.random() * 10 + 's';
+                    particle.style.animationDuration = Math.random() * 5 + 8 + 's';
+                    
+                    particleContainer.appendChild(particle);
+                }
+            }
+            createParticles();
+
+            // Load Recursos
+            fetchData('recursos').then(recursos => {
+                const grid = document.getElementById('recursos-grid');
                 grid.innerHTML = '';
 
-                if (grupos && grupos.length > 0) {
-                    document.getElementById('stat-grupos').textContent = grupos.length;
-                    animateCounter('stat-grupos', grupos.length, 1500);
+                if (recursos && recursos.length > 0) {
+                    document.getElementById('stat-recursos').textContent = recursos.length;
+                    animateCounter('stat-recursos', recursos.length, 1500);
 
-                    grupos.forEach(grupo => {
+                    recursos.forEach(recurso => {
                         const card = document.createElement('a');
-                        card.href = grupo.link;
+                        card.href = recurso.link;
                         card.target = '_blank';
                         card.className = 'card';
                         card.style.textDecoration = 'none';
                         card.innerHTML = `
                                 <div class="card-header">
-                                    <img src="${grupo.imagen || 'img/default_group.png'}" alt="${grupo.titulo}" class="card-icon">
-                                    <h3 class="card-title">${grupo.titulo}</h3>
+                                    <div class="card-icon" style="background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark)); display: flex; align-items: center; justify-content: center;">
+                                        <i class="fab fa-google-drive" style="color: #fff; font-size: 1.2rem;"></i>
+                                    </div>
+                                    <h3 class="card-title">${recurso.titulo}</h3>
                                 </div>
-                                <p class="card-description">${grupo.descripcion || 'Únete a este grupo de la comunidad.'}</p>
-                                <span class="card-link">Unirse al grupo <i class="fas fa-arrow-right"></i></span>
+                                <p class="card-description">${recurso.descripcion || 'Material de estudio de la comunidad.'}</p>
+                                <span class="card-link">Acceder al material <i class="fas fa-external-link-alt"></i></span>
                             `;
                         grid.appendChild(card);
                     });
                 } else {
-                    grid.innerHTML = '<p class="loading">No hay grupos disponibles.</p>';
+                    grid.innerHTML = '<p class="loading">No hay recursos disponibles en este momento.</p>';
+                    document.getElementById('stat-recursos').textContent = "50+"; // Fallback estético si no carga
                 }
             });
 
@@ -1273,39 +1553,7 @@
                         grid.appendChild(card);
                     });
                 } else {
-                    grid.innerHTML = '<p class="loading">No hay administradores.</p>';
-                }
-            });
-
-            // Load Recursos
-            fetchData('recursos').then(recursos => {
-                const grid = document.getElementById('recursos-grid');
-                grid.innerHTML = '';
-
-                if (recursos && recursos.length > 0) {
-                    document.getElementById('stat-recursos').textContent = recursos.length;
-                    animateCounter('stat-recursos', recursos.length, 1500);
-
-                    recursos.forEach(recurso => {
-                        const card = document.createElement('a');
-                        card.href = recurso.link;
-                        card.target = '_blank';
-                        card.className = 'card';
-                        card.style.textDecoration = 'none';
-                        card.innerHTML = `
-                                <div class="card-header">
-                                    <div class="card-icon" style="background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); display: flex; align-items: center; justify-content: center;">
-                                        <i class="fab fa-google-drive" style="color: #fff; font-size: 1.2rem;"></i>
-                                    </div>
-                                    <h3 class="card-title">${recurso.titulo}</h3>
-                                </div>
-                                <p class="card-description">${recurso.descripcion || 'Material de estudio de la comunidad.'}</p>
-                                <span class="card-link">Abrir carpeta <i class="fas fa-external-link-alt"></i></span>
-                            `;
-                        grid.appendChild(card);
-                    });
-                } else {
-                    grid.innerHTML = '<p class="loading">No hay recursos disponibles.</p>';
+                    grid.innerHTML = '<p class="loading">No se pudo cargar la lista de administradores.</p>';
                 }
             });
 
@@ -1315,6 +1563,9 @@
                 grid.innerHTML = '';
 
                 if (eventos && eventos.length > 0) {
+                    document.getElementById('stat-eventos').textContent = eventos.length;
+                    animateCounter('stat-eventos', eventos.length, 1500);
+
                     eventos.forEach(evento => {
                         const fecha = evento.fecha_inicio ? new Date(evento.fecha_inicio).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Próximamente';
                         const card = document.createElement('a');
@@ -1323,17 +1574,18 @@
                         card.className = 'card';
                         card.style.textDecoration = 'none';
                         card.innerHTML = `
-                                <div style="margin-bottom: 12px; color: var(--color-primary); font-size: 0.9rem;">
+                                <div style="margin-bottom: 12px; color: var(--color-primary-light); font-size: 0.9rem; font-weight: 500;">
                                     <i class="fas fa-calendar-alt"></i> ${fecha}
                                 </div>
                                 <h3 class="card-title" style="margin-bottom: 12px;">${evento.titulo}</h3>
-                                <p class="card-description">${evento.descripcion || 'Evento de la comunidad.'}</p>
+                                <p class="card-description">${evento.descripcion || 'Evento exclusivo de la comunidad.'}</p>
                                 <span class="card-link">Ver detalles <i class="fas fa-arrow-right"></i></span>
                             `;
                         grid.appendChild(card);
                     });
                 } else {
-                    grid.innerHTML = '<p class="loading">No hay eventos programados.</p>';
+                    grid.innerHTML = '<p class="loading">No hay eventos programados en este momento.</p>';
+                    document.getElementById('stat-eventos').textContent = "10+"; // Fallback estético si no carga
                 }
             });
 
@@ -1375,21 +1627,8 @@
                         });
                     });
                 } else {
-                    container.innerHTML = '<p class="loading">No hay preguntas frecuentes.</p>';
+                    container.innerHTML = '<p class="loading">No hay preguntas frecuentes en este momento.</p>';
                 }
-            });
-
-            // === SEARCH GRUPOS ===
-            const searchInput = document.getElementById('search-grupos');
-            searchInput.addEventListener('input', () => {
-                const query = searchInput.value.toLowerCase();
-                const cards = document.querySelectorAll('#grupos-grid .card');
-
-                cards.forEach(card => {
-                    const title = card.querySelector('.card-title').textContent.toLowerCase();
-                    const desc = card.querySelector('.card-description').textContent.toLowerCase();
-                    card.style.display = (title.includes(query) || desc.includes(query)) ? 'block' : 'none';
-                });
             });
         });
     </script>
