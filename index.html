@@ -28,6 +28,8 @@
             --color-text-secondary: #9CA3AF;
             --radius: 16px;
             --font-main: 'Inter', sans-serif;
+            --font-title: 'Cinzel', serif;
+            --font-accent: 'Playfair Display', serif;
             --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
         }
 
@@ -35,6 +37,18 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Ocultar Scrollbar Global */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            outline: none !important;
         }
 
         body {
@@ -49,6 +63,8 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         /* === MAGIC ANIMATIONS === */
@@ -347,6 +363,11 @@
             filter: drop-shadow(0 0 10px var(--color-primary-light));
         }
 
+        .nav-social:active {
+            transform: scale(0.9);
+            transition: transform 0.1s;
+        }
+
         .nav-social::before {
             content: '';
             position: absolute;
@@ -418,12 +439,15 @@
 
         .hero-title .accent {
             display: block;
-            font-weight: 800;
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-weight: 500;
             font-size: 0.8em;
-            margin-top: 5px;
+            margin-top: 10px;
             background: linear-gradient(to right, var(--color-primary-light), #FFF, var(--color-primary-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 0.02em;
         }
 
         .hero-description {
@@ -454,7 +478,37 @@
             text-decoration: none;
             cursor: pointer;
             border: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:active {
+            transform: scale(0.92);
+            transition: transform 0.1s;
+        }
+
+        /* Efecto de Pulso Dorado al Click */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 215, 0, 0.5);
+            opacity: 0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: none;
+        }
+
+        .btn:active::after {
+            width: 200%;
+            height: 200%;
+            opacity: 0;
+            transition: width 0.4s, height 0.4s, opacity 0.4s;
         }
 
         .btn-primary {
@@ -577,6 +631,11 @@
             color: var(--color-text);
         }
 
+        .tab:active {
+            transform: scale(0.95);
+            transition: transform 0.1s;
+        }
+
         .tab.active {
             color: var(--color-accent);
             border-bottom-color: var(--color-accent);
@@ -608,21 +667,39 @@
 
         .card:hover {
             border-color: var(--color-primary-light);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
         }
 
         .card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 215, 0, 0.05),
+                transparent
+            );
+            transition: left 0.6s ease;
             pointer-events: none;
         }
 
         .card:hover::before {
+            left: 100%;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.03) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .card:hover::after {
             opacity: 1;
         }
 
@@ -1019,7 +1096,7 @@
                         <i class="fab fa-whatsapp"></i> Unirse a la comunidad
                     </a>
                 </div>
-                <div class="hero-stats">
+                <div class="hero-stats reveal">
                     <div class="stat">
                         <div class="stat-number" id="stat-miembros">1000+</div>
                         <div class="stat-label">Miembros Activos</div>
@@ -1058,7 +1135,7 @@
 
             <!-- Recursos Section -->
             <section id="content-recursos" class="content-section section">
-                <div class="section-header">
+                <div class="section-header reveal">
                     <h2 class="section-title">Recursos de la Comunidad</h2>
                     <p class="section-subtitle">
                         Accede a material de estudio, repositorios, libros y herramientas útiles compartidas por los
@@ -1075,7 +1152,7 @@
 
             <!-- Admins Section -->
             <section id="content-admins" class="content-section section hidden">
-                <div class="section-header">
+                <div class="section-header reveal">
                     <h2 class="section-title">Equipo Administrativo</h2>
                     <p class="section-subtitle">
                         El equipo de profesionales y entusiastas que mantienen viva y organizada la comunidad.
@@ -1129,7 +1206,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="#" class="logo">
-                        <div class="logo-icon" style="font-size: 42px; margin-right: 0;">W</div>
+                        <div class="logo-icon" style="font-size: 42px; margin-right: 0; font-family: 'Mrs Sheppards', cursive;">W</div>
                     </a>
                     <p style="margin-top: 15px;">
                         La comunidad de programación de mayor crecimiento en Latinoamérica.
