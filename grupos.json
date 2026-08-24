@@ -1,140 +1,219 @@
 [
   {
-    "titulo": "Aprendizaje automático y robótica",
-    "descripcion": "Inteligencia artificial, machine learning, deep learning, data science y robótica.",
-    "link": "https://chat.whatsapp.com/FYwPsYz0VPbF41gPKXXox5",
-    "imagen": "img/aprendizaje_automatico_y_robotica.png"
-  },
-  {
     "titulo": "Avisos",
-    "descripcion": "Canal oficial para anuncios importantes, reglas y novedades de la comunidad.",
-    "link": "https://chat.whatsapp.com/C3hvxxlbEH3HQVKz72XnD8",
-    "imagen": "img/avisos.png"
+    "descripcion": "Canal oficial para anuncios importantes, noticias y comunicados de la comunidad.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/JW3FVJ8t2FW43bP7xVQpAo",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "Área Backend",
-    "descripcion": "Grupo principal para todo lo relacionado con el desarrollo del lado del servidor.",
-    "link": "https://chat.whatsapp.com/CIGj3QKznR98NM14sCvr15",
-    "imagen": "img/area_backend.png"
+    "titulo": "Programación",
+    "descripcion": "Debate general, dudas de código, buenas prácticas y conceptos fundamentales.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/Hm5BrUP7NhCBm77ZA6IlpH",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "Área Backend 2.0",
-    "descripcion": "Discusiones avanzadas sobre arquitectura, bases de datos, APIs y microservicios.",
-    "link": "https://chat.whatsapp.com/KXOlL0wfKVfGLogdEb3tqD",
-    "imagen": "img/area_backend.png"
+    "titulo": "Networking",
+    "descripcion": "Conéctate con otros devs, presenta tus proyectos los viernes y crea alianzas.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/CznayZtpbo47GnOlxiBvPS",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "Área de Memes",
-    "descripcion": "Para relajarse y compartir memes de programación. Prohibido ofender.",
-    "link": "https://chat.whatsapp.com/GuBpu7MRKBZ0ObHXKOFTOK",
-    "imagen": "img/area_de_memes.png"
+    "titulo": "HTML, CSS e JS",
+    "descripcion": "Desenvolvimento frontend, estilização moderna, JavaScript e frameworks em português.",
+    "idiomas": [
+      "pt"
+    ],
+    "link": "https://chat.whatsapp.com/J458BjvfDZRJmU28wdeB4F",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "Área de juegos",
-    "descripcion": "Grupo para desarrolladores de videojuegos. Unity, Unreal, Godot y más.",
-    "link": "https://chat.whatsapp.com/LEgKVWPyW1UCjhNR9TQPYW",
-    "imagen": "img/area_de_juegos.png"
+    "titulo": "GNU/LINUX",
+    "descripcion": "Distribuciones Linux, terminal, scripting Bash, administración de servidores y kernel.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/JdpdZT8I8ouBrbG73TXXbA",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "C++",
-    "descripcion": "Desarrollo de alto rendimiento, videojuegos, sistemas embebidos y más con C++.",
-    "link": "https://chat.whatsapp.com/CeE8TUiqXqMD4YQc7zpylf",
-    "imagen": "img/c_plus_plus.png"
+    "titulo": "Off Topic",
+    "descripcion": "Espacio distendido para conversar de temas variados, hobbies y cultura tech.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/GGVveaOckI3Dwcx8m7MD3S",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "Desarrollo Java",
-    "descripcion": "Todo sobre Java, Spring Boot, desarrollo Android nativo y el ecosistema de la JVM.",
-    "link": "https://chat.whatsapp.com/I8VaJlZZBc0D7hivV6XP8O",
-    "imagen": "img/desarrollo_java.png"
+    "titulo": "Inglés básico",
+    "descripcion": "Aprende y practica inglés desde cero con apoyo y explicaciones en español.",
+    "idiomas": [
+      "es",
+      "en"
+    ],
+    "link": "https://chat.whatsapp.com/GPin8UyqmK4BdZonIU4ikr",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "Donación de Archivos",
-    "descripcion": "Comparte y encuentra libros, recursos, cursos y más material de estudio.",
-    "link": "https://chat.whatsapp.com/LYU8WaZspE68imsvNN6Qr2",
-    "imagen": "img/donacion_de_archivos.png"
+    "titulo": "Club de lectura",
+    "descripcion": "Lectura compartida de libros técnicos, arquitectura de software y desarrollo.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/BbbtBiqIsvyFbWqkamjdm0",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Desarrollo de Videojuegos",
+    "descripcion": "Creación de videojuegos con Unity, Unreal Engine, Godot, diseño 2D/3D y shaders.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/BhCotJgyNtlFVaScaSPUFq",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Bases de datos",
+    "descripcion": "SQL, PostgreSQL, MySQL, NoSQL, MongoDB, Redis, diseño y optimización de datos.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/GWnIDEcrmie4MpfYFjBgcS",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "C/C++",
+    "descripcion": "Programación de bajo nivel, alto rendimiento, sistemas embebidos y algoritmos.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/DPxpnzRBAHhAmR9dEoIhx2",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
     "titulo": "English Community",
-    "descripcion": "Practica tu inglés técnico y conversa con miembros de otros países.",
-    "link": "https://chat.whatsapp.com/G1RG63LJJDr4U41NeomGGT",
-    "imagen": "img/english_community.png"
-  },
-  {
-    "titulo": "HTML, CSS y JS",
-    "descripcion": "El stack fundamental del desarrollo web. Dudas, proyectos y recursos.",
-    "link": "https://chat.whatsapp.com/Cp0cKUUL3TL1cknCFMsrJT",
-    "imagen": "img/html_css_y_js.png"
-  },
-  {
-    "titulo": "HTML, CSS y JS 2.0",
-    "descripcion": "Versión avanzada del grupo, enfocada en frameworks, rendimiento y buenas prácticas.",
-    "link": "https://chat.whatsapp.com/CynD2wzZPfG2jw0PCdiIq2",
-    "imagen": "img/html_css_y_js_dos.png"
-  },
-  {
-    "titulo": "Isla Social",
-    "descripcion": "Grupo off-topic para hablar de hobbies, música, películas y más.",
-    "link": "https://chat.whatsapp.com/GiNhTQ2BZrt7CqzrPDVdQn",
-    "imagen": "img/isla_social.png"
-  },
-  {
-    "titulo": "Linux/Ubuntu",
-    "descripcion": "Grupo principal sobre el sistema operativo Linux y distribuciones como Ubuntu.",
-    "link": "https://chat.whatsapp.com/GpiDlygqbALA7E4Qkk2dc9",
-    "imagen": "img/linux_ubuntu.png"
-  },
-  {
-    "titulo": "Linux/Ubuntu 2.0",
-    "descripcion": "Grupo avanzado para sysadmins, kernel, scripting y personalización de Linux.",
-    "link": "https://chat.whatsapp.com/LOJcxoB8S0A7nA82uwm7oD",
-    "imagen": "img/linux_ubuntu.png"
-  },
-  {
-    "titulo": "PDF, Word, Excel y PowerPoint",
-    "descripcion": "Grupo dedicado a la automatización, macros y todo sobre la suite de Office.",
-    "link": "https://chat.whatsapp.com/Is9lmJZBrle3jFWiY0SDEa",
-    "imagen": "img/pdf_word_excel_powerpoint.png"
-  },
-  {
-    "titulo": "PHP",
-    "descripcion": "El lenguaje de la web. Dudas sobre Laravel, Symfony, WordPress y PHP moderno.",
-    "link": "https://chat.whatsapp.com/FkJr9kEdNULHNfUOuCsAhG",
-    "imagen": "img/php.png"
-  },
-  {
-    "titulo": "Portafolios",
-    "descripcion": "Muestra tu portafolio y recibe feedback constructivo de la comunidad.",
-    "link": "https://chat.whatsapp.com/JwtBdH5iYg8Bea3w1isrtR",
-    "imagen": "img/portafolios.png"
-  },
-  {
-    "titulo": "Programadores emprendiendo",
-    "descripcion": "Para devs que quieren lanzar su propia startup, producto SaaS o carrera freelance.",
-    "link": "https://chat.whatsapp.com/EbCPRyN3gvRG5UEsuDM1DO",
-    "imagen": "img/programadores_emprendiendo.png"
-  },
-  {
-    "titulo": "Proyectos colaborativos",
-    "descripcion": "Encuentra equipo o únete a un proyecto para construir algo increíble juntos.",
-    "link": "https://chat.whatsapp.com/LFXSDVMObVpA4tXioVaed9",
-    "imagen": "img/proyectos_colaborativos.png"
+    "descripcion": "Practice your tech English, prepare for international job interviews, and chat in English only.",
+    "idiomas": [
+      "en"
+    ],
+    "link": "https://chat.whatsapp.com/K1jd4Z8yuoaCYwmkv2UzgA",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
     "titulo": "Python",
-    "descripcion": "Discusión general, dudas, proyectos y noticias sobre el ecosistema Python.",
-    "link": "https://chat.whatsapp.com/BnHohguWvdfKS1YrXTi0mL",
-    "imagen": "img/python.png"
+    "descripcion": "Desarrollo con Python: scripts, automatización, Django, FastAPI y análisis de datos.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/LKU4nIreD7JBQHDc4Fr0l6",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "Spam y pruebas",
-    "descripcion": "Un lugar seguro para probar bots, comandos o simplemente enviar mensajes de prueba.",
-    "link": "https://chat.whatsapp.com/CFCnLirxgqM0f60gEdIMKp",
-    "imagen": "img/spam_y_pruebas.png"
+    "titulo": "Backend",
+    "descripcion": "Arquitectura de APIs, microservicios, seguridad, lógica de negocio y escalabilidad.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/Jewyl1pdCqRFHxD1A7VPR2",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   },
   {
-    "titulo": "Termux",
-    "descripcion": "Domina la terminal en tu dispositivo Android. Scripts, herramientas y trucos.",
-    "link": "https://chat.whatsapp.com/GCh6qQhu5LhCfAL9fCVEIx",
-    "imagen": "img/termux.png"
+    "titulo": "Java",
+    "descripcion": "Ecosistema JVM, Spring Boot, microservicios empresariales y desarrollo Android.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/HkFgobcdKMJ9hwEYD4QAIg",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Aprendizaje automático y robótica",
+    "descripcion": "Inteligencia artificial, modelos de Machine Learning, Deep Learning y robótica.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/CHsfx8UbbPv4uf6YJn3jYx",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Backend",
+    "descripcion": "Comunidade de desenvolvimento backend em português. Arquitetura, APIs e boas práticas.",
+    "idiomas": [
+      "pt"
+    ],
+    "link": "https://chat.whatsapp.com/I1sgdkvkafTAleJt1jtsaI",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Windows se nos actualizó",
+    "descripcion": "Trucos, herramientas, optimización de Windows, PowerShell y soporte del sistema.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/GCfKvUqZe4H0ah4XEu5peG",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Portafolios",
+    "descripcion": "Comparte tu portafolio web o CV y recibe retroalimentación para destacar.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/LjCIZlMgiWYD80yl9g0KMi",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Eventos",
+    "descripcion": "Sesiones en vivo, talleres prácticos, charlas y actividades de la comunidad.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/Fd1eNcIxgYb3uZOKdzOHQE",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Oferta de empleo",
+    "descripcion": "Vacantes laborales, oportunidades freelance y consejos para el mercado tech.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/IIA5n8UsTkn1mf8hrDPjFo",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Ciberseguridad",
+    "descripcion": "Seguridad informática, hacking ético, pentesting, análisis forense y protección web.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/JKaNXzDLHusGMCYNz2iomh",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": ".NET",
+    "descripcion": "Desarrollo con C#, .NET Core, ASP.NET, Azure y aplicaciones de escritorio.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/DAXrXDXMkFXJo9v9tfkNdS",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
+  },
+  {
+    "titulo": "Recursos gratis",
+    "descripcion": "Libros, cursos, repositorios, guías y herramientas gratuitas para desarrolladores.",
+    "idiomas": [
+      "es"
+    ],
+    "link": "https://chat.whatsapp.com/HfCLaKiTWTcGpSqQ8EXtJC",
+    "imagen": "https://cdn-icons-png.flaticon.com/512/2352/2352167.png"
   }
 ]

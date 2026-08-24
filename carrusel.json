@@ -1,0 +1,41 @@
+[
+  {
+    "tipo": "imagen",
+    "archivo": "https://images.pexels.com/photos/6804068/pexels-photo-6804068.jpeg",
+    "titulo": "Domina el Código.<br>Aprende en Comunidad.",
+    "descripcion": "Únete a World Wide Dev's, la comunidad colaborativa de programación y tecnología en Latinoamérica. Comparte conocimientos, accede a recursos gratuitos y conecta con desarrolladores.",
+    "botones": [
+      {
+        "texto": "Unirse a la comunidad",
+        "link": "https://chat.whatsapp.com/BbttcM8u6hO9jFbUELi1YF",
+        "externo": true
+      }
+    ]
+  },
+  {
+    "tipo": "imagen",
+    "archivo": "https://images.pexels.com/photos/37860169/pexels-photo-37860169.jpeg",
+    "titulo": "Recursos, Cursos y<br>Material de Estudio.",
+    "descripcion": "Accede a carpetas abiertas con libros, guías de desarrollo web, backend, lógica de programación y herramientas seleccionadas por la comunidad.",
+    "botones": [
+      {
+        "texto": "Ver Recursos",
+        "link": "#comunidad",
+        "tab": "recursos"
+      }
+    ]
+  },
+  {
+    "tipo": "imagen",
+    "archivo": "https://images.pexels.com/photos/8134019/pexels-photo-8134019.jpeg",
+    "titulo": "Conéctate con Líderes<br>y Desarrolladores LATAM.",
+    "descripcion": "Participa en eventos exclusivos, mentorías, talleres prácticos y proyectos colaborativos para impulsar tu carrera en el desarrollo de software.",
+    "botones": [
+      {
+        "texto": "Próximos Eventos",
+        "link": "#comunidad",
+        "tab": "eventos"
+      }
+    ]
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "nombre": "Comunidad Activa",
+    "descripcion": "Curadores y Miembros Destacados",
+    "foto": "Fotografia-horizontal-o-vertical-Foto-de-Claudia-Nicolow.jpg",
+    "grupos": [
+      "Recursos",
+      "Aportes"
+    ],
+    "links": [
+      {
+        "tipo": "github",
+        "url": "https://github.com"
+      }
+    ]
+  },
+  {
+    "nombre": "Aportadores de Recursos",
+    "descripcion": "Donadores de Material Didáctico",
+    "foto": "premium_photo-1661962685099-c6a685e6c61d.avif",
+    "grupos": [
+      "Libros & Cursos",
+      "Material"
+    ],
+    "links": [
+      {
+        "tipo": "linkedin",
+        "url": "https://linkedin.com"
+      }
+    ]
+  },
+  {
+    "nombre": "Mentores de la Comunidad",
+    "descripcion": "Apoyo Técnico & Guía",
+    "foto": "img/iniciativa-dev-2026.png",
+    "grupos": [
+      "Mentorías",
+      "Talleres"
+    ],
+    "links": [
+      {
+        "tipo": "github",
+        "url": "https://github.com"
+      }
+    ]
+  }
+]
