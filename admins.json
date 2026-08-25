@@ -1,11 +1,49 @@
 [
   {
-    "nombre": "Alex Quicaño",
+    "nombre": "Alexandro Mendez",
     "descripcion": "Frontend Developer",
     "foto": "img/default_profile.png",
     "banner": "img/default_banner.png",
+    "roles": [
+      "Propietario"
+    ],
     "grupos": [
-      "Avisos"
+      "Todos los grupos"
+    ],
+    "links": []
+  },
+  {
+    "nombre": "Jota Mejia",
+    "descripcion": "Frontend Developer",
+    "foto": "img/jota_mejia.jpeg",
+    "banner": "https://i.pinimg.com/originals/27/53/59/27535979db8dcdd20b4b954dc5547ac2.gif",
+    "roles": [
+      "Fundador"
+    ],
+    "grupos": [
+      "Todos los grupos"
+    ],
+    "links": [
+      {
+        "tipo": "linkedin",
+        "url": "https://www.linkedin.com/in/jhoan-mejia-a08439272/"
+      },
+      {
+        "tipo": "github",
+        "url": "https://github.com/Dsgnr-JM"
+      }
+    ]
+  },
+  {
+    "nombre": "Alex Quicaño",
+    "descripcion": "Frontend Developer",
+    "foto": "img/alex_quicaño.jpeg",
+    "banner": "https://i.pinimg.com/originals/e2/37/67/e23767638fb72ccea204eab108555e82.gif",
+    "roles": [
+      "Moderador"
+    ],
+    "grupos": [
+      "Todos los gupos"
     ],
     "links": [
       {
@@ -22,9 +60,12 @@
     "nombre": "Fernando González",
     "descripcion": "Frontend Developer",
     "foto": "img/default_profile.png",
-    "banner": "img/default_banner.png",
+    "banner": "https://i.pinimg.com/originals/80/ec/77/80ec77932091113c4970a88f69b9bb4f.gif",
+    "roles": [
+      "Moderador"
+    ],
     "grupos": [
-      "Avisos"
+      "Todos los gupos"
     ],
     "links": [
       {
@@ -38,12 +79,46 @@
     ]
   },
   {
+    "nombre": "Andrea Fernandez",
+    "descripcion": "Ciberseguridad",
+    "foto": "img/andrea_fernandez.jpeg",
+    "banner": "https://i.pinimg.com/originals/73/38/41/733841b21504cb53101e99b2f355c376.gif",
+    "roles": [
+      "Moderador"
+    ],
+    "grupos": [
+      "Todos los gupos"
+    ],
+    "links": [
+      {
+        "tipo": "linkedin",
+        "url": "https://www.linkedin.com/in/andrea-bel%C3%A9n-fern%C3%A1ndez-varela-89a600332/"
+      }
+    ]
+  },
+  {
+    "nombre": "Luis Medina",
+    "descripcion": "Frontend Developer",
+    "foto": "img/default_profile.png",
+    "banner": "img/default_banner.png",
+    "roles": [
+      "Moderador"
+    ],
+    "grupos": [
+      "Todos los gupos"
+    ],
+    "links": []
+  },
+  {
     "nombre": "Luiggy Carlin",
     "descripcion": "FullStack Developer",
     "foto": "img/luiggy_carlin.jpeg",
-    "banner": "img/default_banner.png",
+    "banner": "https://i.pinimg.com/originals/1a/4e/a5/1a4ea50c266ca383edca5a61c8f89508.gif",
+    "roles": [
+      "Moderador"
+    ],
     "grupos": [
-      "Avisos"
+      "Todos los gupos"
     ],
     "links": [
       {
@@ -57,51 +132,15 @@
     ]
   },
   {
-    "nombre": "Juan Jiménez",
-    "descripcion": "Analista de Datos",
+    "nombre": "Maria Mancilla",
+    "descripcion": "Ciberseguridad",
     "foto": "img/default_profile.png",
-    "banner": "img/default_banner.png",
-    "grupos": [
-      "Python"
+    "banner": "https://i.pinimg.com/originals/97/8f/fa/978ffa208ed4b95b2ed244092b6ac6cc.gif",
+    "roles": [
+      "Moderador"
     ],
-    "links": [
-      {
-        "tipo": "github",
-        "url": "https://github.com/juancarlosjimenezgt-lab"
-      },
-      {
-        "tipo": "linkedin",
-        "url": "https://www.linkedin.com/in/juan-carlos-jimenez-vargas-a53b9b206/"
-      }
-    ]
-  },
-  {
-    "nombre": "Jorge Orejuela",
-    "descripcion": "Estudiante Universitario",
-    "foto": "img/default_profile.png",
-    "banner": "img/default_banner.png",
     "grupos": [
-      "Área Backend",
-      "Área Backend 2.0"
-    ],
-    "links": [
-      {
-        "tipo": "github",
-        "url": "https://github.com/jorgeorejuela"
-      },
-      {
-        "tipo": "linkedin",
-        "url": "https://www.linkedin.com/in/jorge-orejuela-"
-      }
-    ]
-  },
-  {
-    "nombre": "María Mancilla",
-    "descripcion": "Estudiante Universitaria",
-    "foto": "img/default_profile.png",
-    "banner": "img/default_banner.png",
-    "grupos": [
-      "Desarrollo Java"
+      "Todos los grupos"
     ],
     "links": [
       {
@@ -115,55 +154,20 @@
     ]
   },
   {
-    "nombre": "Carlos Quiroz",
-    "descripcion": "Developer .NET (Backend)",
-    "foto": "img/carlos_quiroz.jpeg",
-    "banner": "img/default_banner.png",
+    "nombre": "Gregory Perozo",
+    "descripcion": "Ingeniería de datos",
+    "foto": "img/gregory_perozo.jpeg",
+    "banner": "img/gregory_perozo_banner.gif",
+    "roles": [
+      "Moderador"
+    ],
     "grupos": [
-      "Proyectos Colaborativos"
+      "Todos los grupos"
     ],
     "links": [
       {
         "tipo": "github",
-        "url": "https://github.com/qubumx"
-      },
-      {
-        "tipo": "linkedin",
-        "url": "https://www.linkedin.com/in/carlosquirozbucio/"
-      }
-    ]
-  },
-  {
-    "nombre": "Samuel Moscoso",
-    "descripcion": "Estudiante Universitario",
-    "foto": "img/samuel_moscoso.jpeg",
-    "banner": "img/default_banner.png",
-    "grupos": [
-      "Linux/Ubuntu"
-    ],
-    "links": [
-      {
-        "tipo": "github",
-        "url": "https://github.com/xsamuuu"
-      },
-      {
-        "tipo": "linkedin",
-        "url": "https://www.linkedin.com/in/samuel-moscoso-b2b424286/"
-      }
-    ]
-  },
-  {
-    "nombre": "Nelson Xiori",
-    "descripcion": "Desarrollador Frontend",
-    "foto": "img/default_profile.png",
-    "banner": "img/default_banner.png",
-    "grupos": [
-      "HTML, CSS y JS"
-    ],
-    "links": [
-      {
-        "tipo": "github",
-        "url": "https://github.com/xiori-zenzenaty"
+        "url": "https://github.com/jessec01"
       }
     ]
   }

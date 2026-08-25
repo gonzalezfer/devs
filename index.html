@@ -265,6 +265,7 @@
         }
 
         .hero-title,
+        .hero-countdown,
         .hero-description,
         .hero-cta {
             opacity: 0;
@@ -276,6 +277,12 @@
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.18s;
+        }
+
+        .hero-slide.active .hero-countdown {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.25s;
         }
 
         .hero-slide.active .hero-description {
@@ -334,7 +341,7 @@
         /* Slider Controls */
         .hero-slider-controls {
             position: absolute;
-            bottom: 60px;
+            bottom: 24px;
             left: 0;
             right: 0;
             z-index: 10;
@@ -373,7 +380,7 @@
         /* 6s Progress Bar */
         .hero-slider-progress {
             position: absolute;
-            bottom: 40px;
+            bottom: 0px;
             left: 0;
             width: 100%;
             height: 2px;
@@ -1370,31 +1377,52 @@
             overflow: hidden;
             border-radius: var(--radius-lg);
             background: #FFFFFF;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
-        .admin-image-wrapper {
+        .admin-card-header {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 130px;
+            margin-bottom: 35px; /* space for avatar overlap */
+        }
+
+        .admin-banner-wrapper {
+            width: 100%;
+            height: 90px;
             overflow: hidden;
             background: #f1f5f9;
         }
 
-        .admin-card-img {
+        .admin-banner-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .admin-image-gradient {
+        .admin-avatar-container {
             position: absolute;
             bottom: 0;
-            left: 0;
-            right: 0;
-            height: 70%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 60%, #FFFFFF 100%);
-            pointer-events: none;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background: #FFFFFF;
+            z-index: 2;
+        }
+
+        .admin-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .admin-info {
@@ -1429,13 +1457,34 @@
         }
 
         .admin-tag {
-            background: var(--color-badge-bg);
-            border: 1px solid var(--color-border);
             padding: 3px 8px;
             border-radius: var(--radius-sm);
             font-size: 0.72rem;
-            color: var(--color-badge-text);
             font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .admin-tag-role {
+            background: var(--color-border-dark);
+            border: 1px solid var(--color-border-dark);
+            color: var(--color-bg);
+        }
+
+        .admin-tag-role i {
+            margin-right: 4px;
+            font-size: 0.65rem;
+        }
+
+        .admin-tag-group {
+            background: var(--color-badge-bg);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+        }
+
+        .admin-tag-group i {
+            margin-right: 4px;
+            font-size: 0.65rem;
         }
 
         .admin-socials {
@@ -1617,6 +1666,77 @@
 
         .event-card.event-theme-light .event-card-link {
             color: #0A0A0F;
+        }
+
+        /* Cuenta Regresiva (Countdowns) */
+        .hero-countdown {
+            display: flex;
+            gap: 12px;
+            margin: 16px 0 24px;
+            justify-content: flex-start;
+        }
+
+        .hero-countdown-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: var(--radius-md);
+            min-width: 68px;
+            padding: 6px 10px;
+        }
+
+        .hero-countdown-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.1;
+        }
+
+        .hero-countdown-lbl {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.75);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-top: 3px;
+        }
+
+        .event-countdown-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            color: inherit;
+            align-self: flex-start;
+        }
+
+        .event-card.event-theme-light .event-countdown-badge {
+            background: rgba(15, 23, 42, 0.05);
+            border-color: rgba(15, 23, 42, 0.1);
+        }
+
+        .countdown-finished-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #EF4444;
+            color: #FFFFFF;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 10px;
         }
 
         /* FAQs */
@@ -1932,31 +2052,6 @@
             <div class="hero-slider-progress-bar" id="hero-progress-bar"></div>
         </div>
 
-        <!-- Ticker Marquee Networking rotativo de derecha a izquierda -->
-        <div class="hero-ticker">
-            <div class="hero-ticker-track">
-                <span class="hero-ticker-item">
-                    <strong>¡Sesiones de Networking todos los viernes!</strong> Presenta tus proyectos y recibe feedback constructivo.
-                    <button type="button" class="ticker-action-btn" onclick="openNetworkingModal()">Inscribir mi proyecto <i class="fas fa-arrow-right"></i></button>
-                    <span class="hero-ticker-dot"></span>
-                </span>
-                <span class="hero-ticker-item">
-                    <strong>¡Sesiones de Networking todos los viernes!</strong> Presenta tus proyectos y recibe feedback constructivo.
-                    <button type="button" class="ticker-action-btn" onclick="openNetworkingModal()">Inscribir mi proyecto <i class="fas fa-arrow-right"></i></button>
-                    <span class="hero-ticker-dot"></span>
-                </span>
-                <span class="hero-ticker-item">
-                    <strong>¡Sesiones de Networking todos los viernes!</strong> Presenta tus proyectos y recibe feedback constructivo.
-                    <button type="button" class="ticker-action-btn" onclick="openNetworkingModal()">Inscribir mi proyecto <i class="fas fa-arrow-right"></i></button>
-                    <span class="hero-ticker-dot"></span>
-                </span>
-                <span class="hero-ticker-item">
-                    <strong>¡Sesiones de Networking todos los viernes!</strong> Presenta tus proyectos y recibe feedback constructivo.
-                    <button type="button" class="ticker-action-btn" onclick="openNetworkingModal()">Inscribir mi proyecto <i class="fas fa-arrow-right"></i></button>
-                    <span class="hero-ticker-dot"></span>
-                </span>
-            </div>
-        </div>
     </section>
 
     <!-- Presentation Section (Sobre World Wide Dev's) -->
@@ -2361,6 +2456,74 @@
         // === CONFIGURACIÓN DE GOOGLE APPS SCRIPT ===
         // Pega aquí la URL de la aplicación web obtenida al implementar google_apps_script.js en Google Sheets
         let GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbygb0kdh3SwgSJRUGLyl-4-6V24bOVdCuouA_hsjQj2LACKRN_FoQx1i5s59IZkkO5-cw/exec';
+
+        // === HELPER PARA EL MANEJO DE ZONAS HORARIAS ===
+        // Convierte una fecha ingresada (por defecto en Hora Centro de EE. UU. / CST/CDT) a la zona horaria local del usuario.
+        function parseDateInCentralTime(dateStr) {
+            if (!dateStr) return null;
+            
+            // Normalizar formato reemplazando espacios por T
+            let normalized = dateStr.trim().replace(' ', 'T');
+            
+            // Si la fecha ya incluye indicador de zona horaria (Z o +/-offset), la procesamos directamente
+            const hasTimezone = /Z$|[+-]\d{2}:?\d{2}$/.test(normalized);
+            if (hasTimezone) {
+                return new Date(normalized);
+            }
+            
+            // Si no tiene hora, completamos a medianoche
+            if (normalized.length === 10) {
+                normalized += 'T00:00:00';
+            } else if (normalized.length === 16) {
+                normalized += ':00';
+            }
+            
+            // Separar componentes para evitar variaciones de parseo entre navegadores
+            const parts = normalized.split(/[-T:]/);
+            if (parts.length < 6) return new Date(normalized);
+            
+            const year = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1;
+            const day = parseInt(parts[2], 10);
+            const hour = parseInt(parts[3], 10);
+            const minute = parseInt(parts[4], 10);
+            const second = parseInt(parts[5], 10);
+            
+            // Creamos la fecha asumiendo que los valores están en UTC temporalmente
+            const dateUTC = new Date(Date.UTC(year, month, day, hour, minute, second));
+            
+            try {
+                // Obtenemos los componentes correspondientes a 'America/Chicago' para esta fecha
+                const formatter = new Intl.DateTimeFormat('en-US', {
+                    timeZone: 'America/Chicago',
+                    year: 'numeric', month: '2-digit', day: '2-digit',
+                    hour: '2-digit', minute: '2-digit', second: '2-digit',
+                    hour12: false
+                });
+                const partsList = formatter.formatToParts(dateUTC);
+                const map = {};
+                partsList.forEach(p => { map[p.type] = p.value; });
+                
+                // Formatear chicago como si fuera UTC
+                const chicagoAsUTC = Date.UTC(
+                    parseInt(map.year, 10),
+                    parseInt(map.month, 10) - 1,
+                    parseInt(map.day, 10),
+                    parseInt(map.hour, 10),
+                    parseInt(map.minute, 10),
+                    parseInt(map.second, 10)
+                );
+                
+                // La diferencia es el offset de Chicago respecto a UTC
+                const offset = chicagoAsUTC - dateUTC.getTime();
+                
+                // Ajustamos la fecha para representar la hora correcta en la zona local del cliente
+                return new Date(dateUTC.getTime() - offset);
+            } catch (e) {
+                // Fallback: usar el offset promedio de -6 horas
+                return new Date(dateUTC.getTime() + (6 * 60 * 60 * 1000));
+            }
+        }
 
         const STEP_CONFIG = [
             {
@@ -2853,7 +3016,7 @@
             // === FETCH JSON DATA ===
             async function fetchData(file) {
                 try {
-                    const response = await fetch(file + '.json');
+                    const response = await fetch(file + '.json?t=' + new Date().getTime());
                     if (!response.ok) throw new Error('Error de red al cargar ' + file);
                     return await response.json();
                 } catch (error) {
@@ -2908,11 +3071,37 @@
                         `;
                     }
 
+                    // Renderizar cuenta regresiva si el slide tiene fecha_countdown
+                    let countdownHtml = '';
+                    if (slide.fecha_countdown) {
+                        countdownHtml = `
+                            <div class="hero-countdown" data-countdown="${slide.fecha_countdown}">
+                                <div class="hero-countdown-segment">
+                                    <span class="hero-countdown-val countdown-days">00</span>
+                                    <span class="hero-countdown-lbl">días</span>
+                                </div>
+                                <div class="hero-countdown-segment">
+                                    <span class="hero-countdown-val countdown-hours">00</span>
+                                    <span class="hero-countdown-lbl">horas</span>
+                                </div>
+                                <div class="hero-countdown-segment">
+                                    <span class="hero-countdown-val countdown-minutes">00</span>
+                                    <span class="hero-countdown-lbl">min</span>
+                                </div>
+                                <div class="hero-countdown-segment">
+                                    <span class="hero-countdown-val countdown-seconds">00</span>
+                                    <span class="hero-countdown-lbl">seg</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+
                     slideEl.innerHTML = `
                         ${mediaHtml}
                         <div class="hero-slide-overlay"></div>
                         <div class="hero-slide-content">
                             <h1 class="hero-title">${slide.titulo || slide.title || ''}</h1>
+                            ${countdownHtml}
                             <p class="hero-description">${slide.descripcion || slide.description || ''}</p>
                             ${buttonsHtml ? `<div class="hero-cta">${buttonsHtml}</div>` : ''}
                         </div>
@@ -2930,13 +3119,17 @@
                     }
                 });
 
-                // Manejo de scroll para botones de diapositivas vinculados a secciones
+                // Manejo de scroll o acciones para botones de diapositivas vinculados a secciones/modales
                 document.querySelectorAll('.hero-slide-btn[data-tab]').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const tabName = btn.getAttribute('data-tab');
                         if (tabName) {
                             e.preventDefault();
-                            scrollToSection(`content-${tabName}`);
+                            if (tabName === 'networking-modal') {
+                                openNetworkingModal();
+                            } else {
+                                scrollToSection(`content-${tabName}`);
+                            }
                         }
                     });
                 });
@@ -3132,15 +3325,20 @@
                         const card = document.createElement('div');
                         card.className = 'card admin-card';
                         card.innerHTML = `
-                            <div class="admin-image-wrapper">
-                                <img src="${admin.foto || 'img/default_profile.png'}" alt="${admin.nombre}" class="admin-card-img" onerror="this.src='img/default_profile.png'">
-                                <div class="admin-image-gradient"></div>
+                            <div class="admin-card-header">
+                                <div class="admin-banner-wrapper">
+                                    <img src="${admin.banner || 'img/default_banner.png'}" alt="banner" class="admin-banner-img" onerror="this.src='img/default_banner.png'">
+                                </div>
+                                <div class="admin-avatar-container">
+                                    <img src="${admin.foto || 'img/default_profile.png'}" alt="${admin.nombre}" class="admin-avatar-img" onerror="this.src='img/default_profile.png'">
+                                </div>
                             </div>
                             <div class="admin-info">
                                 <h3 class="admin-name">${admin.nombre}</h3>
                                 <p class="admin-role">${admin.descripcion || 'Administrador'}</p>
                                 <div class="admin-tags">
-                                    ${(admin.grupos || []).map(g => `<span class="admin-tag">${g}</span>`).join('')}
+                                    ${(admin.roles || []).map(r => `<span class="admin-tag admin-tag-role"><i class="fas fa-shield-alt"></i>${r}</span>`).join('')}
+                                    ${(admin.grupos || []).map(g => `<span class="admin-tag admin-tag-group"><i class="fas fa-users"></i>${g}</span>`).join('')}
                                 </div>
                                 <div class="admin-socials">
                                     ${getLink('github') ? `<a href="${getLink('github')}" target="_blank" class="admin-social" title="GitHub"><i class="fab fa-github"></i></a>` : ''}
@@ -3171,9 +3369,13 @@
                         const card = document.createElement('div');
                         card.className = 'card admin-card';
                         card.innerHTML = `
-                            <div class="admin-image-wrapper">
-                                <img src="${colaborador.foto || 'img/default_profile.png'}" alt="${colaborador.nombre}" class="admin-card-img" onerror="this.src='img/default_profile.png'">
-                                <div class="admin-image-gradient"></div>
+                            <div class="admin-card-header">
+                                <div class="admin-banner-wrapper">
+                                    <img src="${colaborador.banner || 'img/default_banner.png'}" alt="banner" class="admin-banner-img" onerror="this.src='img/default_banner.png'">
+                                </div>
+                                <div class="admin-avatar-container">
+                                    <img src="${colaborador.foto || 'img/default_profile.png'}" alt="${colaborador.nombre}" class="admin-avatar-img" onerror="this.src='img/default_profile.png'">
+                                </div>
                             </div>
                             <div class="admin-info">
                                 <h3 class="admin-name">${colaborador.nombre}</h3>
@@ -3221,7 +3423,41 @@
                     document.getElementById('stat-eventos').textContent = eventos.length;
 
                     eventos.forEach(evento => {
-                        const fecha = evento.fecha_inicio ? new Date(evento.fecha_inicio).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Próximamente';
+                        let fecha = 'Próximamente';
+                        let countdownBadge = '';
+                        
+                        if (evento.fecha_inicio) {
+                            const eventDate = parseDateInCentralTime(evento.fecha_inicio);
+                            
+                            // Determinar si usar 12 horas (AM/PM) según preferencia de sistema o geolocalización (América)
+                            let use12Hour = false;
+                            try {
+                                const resolved = Intl.DateTimeFormat(undefined, { hour: 'numeric' }).resolvedOptions();
+                                if (resolved && resolved.hour12 !== undefined) {
+                                    use12Hour = resolved.hour12;
+                                }
+                            } catch (e) {}
+                            
+                            // Heurística: forzar 12h en América (getTimezoneOffset positivo / GMT negativo) excepto España
+                            const offsetMinutes = new Date().getTimezoneOffset();
+                            const isAmericas = offsetMinutes > 0;
+                            const isSpain = (navigator.language || '').toLowerCase().includes('es-es');
+                            if (isAmericas && !isSpain) {
+                                use12Hour = true;
+                            }
+                            
+                            const dateStr = eventDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+                            const timeStr = eventDate.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: use12Hour });
+                            fecha = `${dateStr} — ${timeStr}`;
+                            
+                            if (eventDate > new Date()) {
+                                countdownBadge = `
+                                    <div class="event-countdown-badge" data-countdown="${evento.fecha_inicio}">
+                                        Cargando cuenta regresiva...
+                                    </div>
+                                `;
+                            }
+                        }
                         const bgColor = evento.color || '#FFFFFF';
                         const contrastTheme = getContrastClass(bgColor);
 
@@ -3245,6 +3481,7 @@
                                     <div class="event-card-date">
                                         <i class="fas fa-calendar-alt"></i> ${fecha}
                                     </div>
+                                    ${countdownBadge}
                                     <h3 class="event-card-title">${evento.titulo}</h3>
                                     <p class="event-card-desc">${evento.descripcion || 'Evento de la comunidad.'}</p>
                                 </div>
@@ -3302,6 +3539,51 @@
                     container.innerHTML = '<p class="loading">No hay preguntas frecuentes en este momento.</p>';
                 }
             });
+
+            // === LOGICA DE CUENTA REGRESIVA GLOBAL ===
+            function updateCountdowns() {
+                const elements = document.querySelectorAll('[data-countdown]');
+                elements.forEach(el => {
+                    const targetDateStr = el.getAttribute('data-countdown');
+                    if (!targetDateStr) return;
+
+                    const targetDate = parseDateInCentralTime(targetDateStr);
+                    const now = new Date();
+                    const diff = targetDate.getTime() - now.getTime();
+
+                    if (diff <= 0) {
+                        if (el.classList.contains('hero-countdown')) {
+                            el.innerHTML = `<div class="countdown-finished-badge" style="margin-top: 0;"><i class="fas fa-satellite-dish fa-fade"></i> ¡Evento en vivo!</div>`;
+                        } else {
+                            el.className = 'countdown-finished-badge';
+                            el.innerHTML = `<i class="fas fa-satellite-dish fa-fade"></i> ¡En vivo!`;
+                        }
+                        return;
+                    }
+
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    const daysValEl = el.querySelector('.countdown-days');
+                    const hoursValEl = el.querySelector('.countdown-hours');
+                    const minutesValEl = el.querySelector('.countdown-minutes');
+                    const secondsValEl = el.querySelector('.countdown-seconds');
+
+                    if (daysValEl && hoursValEl && minutesValEl && secondsValEl) {
+                        daysValEl.textContent = String(days).padStart(2, '0');
+                        hoursValEl.textContent = String(hours).padStart(2, '0');
+                        minutesValEl.textContent = String(minutes).padStart(2, '0');
+                        secondsValEl.textContent = String(seconds).padStart(2, '0');
+                    } else {
+                        el.innerHTML = `<i class="fas fa-clock"></i> Faltan: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                    }
+                });
+            }
+
+            updateCountdowns();
+            setInterval(updateCountdowns, 1000);
         });
 
         // === PREVENIR ZOOM EN EL SITIO WEB (GESTOS TÁCTILES Y ATAJOS DE TECLADO/MOUSE) ===

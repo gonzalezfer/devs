@@ -1,6 +1,20 @@
 [
   {
     "tipo": "imagen",
+    "archivo": "img/networking_ad.png",
+    "titulo": "Networking Sesión #1<br>¡Inscríbete hoy!",
+    "descripcion": "Presenta tu proyecto ante la comunidad, practica tu pitch y recibe feedback constructivo de desarrolladores experimentados de Latinoamérica.",
+    "fecha_countdown": "2026-09-04T18:00:00",
+    "botones": [
+      {
+        "texto": "Registrar mi proyecto",
+        "link": "#",
+        "tab": "networking-modal"
+      }
+    ]
+  },
+  {
+    "tipo": "imagen",
     "archivo": "https://images.pexels.com/photos/6804068/pexels-photo-6804068.jpeg",
     "titulo": "Domina el Código.<br>Aprende en Comunidad.",
     "descripcion": "Únete a World Wide Dev's, la comunidad colaborativa de programación y tecnología en Latinoamérica. Comparte conocimientos, accede a recursos gratuitos y conecta con desarrolladores.",

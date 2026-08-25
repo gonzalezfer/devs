@@ -1,10 +1,10 @@
 [
   {
-    "titulo": "Networking Sesión #2",
-    "descripcion": "¿Vas a empezar la universidad o ya estás en ella y quieres una base sólida en programación? Este programa está diseñado para darte el contexto y las herramientas fundamentales para entender la programación a fondo.",
-    "fecha_inicio": "2026-09-04T00:00:00",
-    "imagen": "img/networking.png",
-    "color": "#1F60F7",
+    "titulo": "Networking Sesión #1",
+    "descripcion": "Presenta tu proyecto ante la comunidad, practica tu pitch y recibe feedback constructivo de desarrolladores experimentados de Latinoamérica.",
+    "fecha_inicio": "2026-09-04T18:00:00",
+    "imagen": "img/networking_ad.png",
+    "color": "#010023",
     "link": "https://chat.whatsapp.com/CznayZtpbo47GnOlxiBvPS"
   }
 ]
