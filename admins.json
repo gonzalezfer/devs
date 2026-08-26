@@ -99,15 +99,20 @@
   {
     "nombre": "Luis Medina",
     "descripcion": "Frontend Developer",
-    "foto": "img/default_profile.png",
-    "banner": "img/default_banner.png",
+    "foto": "img/luis_medina.jpeg",
+    "banner": "img/luis_medina_banner.gif",
     "roles": [
       "Moderador"
     ],
     "grupos": [
       "Algunos grupos"
     ],
-    "links": []
+    "links": [
+      {
+        "tipo": "linkedin",
+        "url": "https://www.linkedin.com/in/luis-medina-259805244/"
+      }
+    ]
   },
   {
     "nombre": "Luiggy Carlin",
