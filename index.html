@@ -2752,27 +2752,170 @@
             margin-top: 8px;
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             .ai-bottom-bar-placeholder {
-                font-size: 0.78rem;
+                font-size: 0.8rem;
             }
             .ai-bottom-bar-text-area {
-                padding: 0 14px;
+                padding: 0 16px;
             }
             .ai-bottom-bar-action {
-                padding: 0 18px;
+                padding: 0 20px;
             }
             .ai-chat-window {
-                bottom: 56px;
-                right: 8px;
-                left: 8px;
-                width: auto;
-                height: calc(100vh - 64px);
+                top: 0;
+                bottom: 52px;
+                right: 0;
+                left: 0;
+                width: 100%;
+                max-width: 100%;
+                height: calc(100vh - 52px);
+                height: calc(100dvh - 52px);
                 max-height: none;
-                border-radius: 16px;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                transform-origin: bottom center;
+            }
+            .ai-chat-header {
+                border-radius: 0;
             }
             .ai-prompts-grid {
                 grid-template-columns: 1fr;
+            }
+
+            /* Responsive Chat Bubbles */
+            .ai-msg-content-wrap {
+                max-width: 96%;
+            }
+            .ai-msg-row.user .ai-msg-content-wrap {
+                max-width: 88%;
+            }
+            .ai-bot-bubble {
+                font-size: 0.86rem;
+                line-height: 1.55;
+            }
+            .ai-user-bubble {
+                font-size: 0.86rem;
+                padding: 9px 14px;
+            }
+
+            /* Responsive Headings */
+            .ai-h1 { font-size: 1.05rem; margin: 12px 0 5px; }
+            .ai-h2 { font-size: 0.96rem; margin: 10px 0 5px; }
+            .ai-h3 { font-size: 0.9rem; margin: 8px 0 4px; }
+            .ai-h4 { font-size: 0.84rem; margin: 7px 0 3px; }
+
+            /* Responsive Tables */
+            .ai-table-wrapper {
+                margin: 8px -4px;
+                border-radius: 8px;
+                width: calc(100% + 8px);
+            }
+            .ai-table {
+                font-size: 0.78rem;
+                min-width: 280px;
+            }
+            .ai-table th {
+                white-space: normal;
+                word-break: break-word;
+                padding: 7px 8px;
+                font-size: 0.76rem;
+            }
+            .ai-table td {
+                padding: 7px 8px;
+                word-break: break-word;
+            }
+
+            /* Responsive Code Blocks */
+            .ai-code-block {
+                border-radius: 8px;
+                margin: 6px -4px;
+                width: calc(100% + 8px);
+            }
+            .ai-code-block pre {
+                padding: 10px;
+                font-size: 0.72rem;
+                line-height: 1.4;
+            }
+            .ai-code-header {
+                padding: 5px 10px;
+                font-size: 0.68rem;
+            }
+            .ai-inline-code {
+                font-size: 0.76rem;
+                padding: 1px 4px;
+                word-break: break-all;
+            }
+
+            /* Responsive Quotes */
+            .ai-quote {
+                padding: 8px 10px;
+                font-size: 0.82rem;
+                margin: 8px 0;
+                gap: 6px;
+            }
+            .ai-quote-icon {
+                font-size: 0.72rem;
+                margin-top: 2px;
+            }
+
+            /* Responsive Links */
+            .ai-wa-link, .ai-drive-link {
+                font-size: 0.78rem;
+                padding: 2px 6px;
+                word-break: break-word;
+            }
+            .ai-generic-link {
+                word-break: break-all;
+            }
+
+            /* Responsive Tasks & Lists */
+            .ai-task {
+                font-size: 0.82rem;
+                gap: 6px;
+            }
+            .ai-task i {
+                font-size: 0.88rem;
+            }
+            .ai-list-item, .ai-num-item {
+                font-size: 0.84rem;
+                gap: 5px;
+            }
+            .ai-num-badge {
+                font-size: 0.82rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ai-bottom-bar-placeholder {
+                font-size: 0.76rem;
+            }
+            .ai-bottom-bar-text-area {
+                padding: 0 12px;
+            }
+            .ai-bottom-bar-action {
+                padding: 0 16px;
+                font-size: 0.82rem;
+            }
+
+            /* Extra-small screen adjustments */
+            .ai-bot-bubble {
+                font-size: 0.84rem;
+            }
+            .ai-table {
+                font-size: 0.74rem;
+            }
+            .ai-table th {
+                padding: 6px 6px;
+                font-size: 0.72rem;
+            }
+            .ai-table td {
+                padding: 6px 6px;
+            }
+            .ai-code-block pre {
+                font-size: 0.68rem;
+                padding: 8px;
             }
         }
     </style>
@@ -4480,8 +4623,11 @@
                 }
 
                 setTimeout(() => {
-                    const inputEl = document.getElementById('ai-chat-input');
-                    if (inputEl) inputEl.focus();
+                    const isMobile = window.innerWidth <= 768 || window.matchMedia('(pointer: coarse)').matches;
+                    if (!isMobile) {
+                        const inputEl = document.getElementById('ai-chat-input');
+                        if (inputEl) inputEl.focus();
+                    }
                 }, 200);
             } else {
                 windowEl.classList.remove('open');
@@ -4815,7 +4961,8 @@
                     actionBtn.title = 'Enviar mensaje';
                 }
                 if (icon) icon.className = 'fas fa-arrow-up';
-                if (input) input.focus();
+                const isMobile = window.innerWidth <= 768 || window.matchMedia('(pointer: coarse)').matches;
+                if (!isMobile && input) input.focus();
             }
         }
 
