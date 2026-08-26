@@ -2,13 +2,13 @@
   {
     "nombre": "Alexandro Mendez",
     "descripcion": "Frontend Developer",
-    "foto": "img/default_profile.png",
-    "banner": "img/default_banner.png",
+    "foto": "https://i.pinimg.com/736x/4b/64/04/4b64044ab81969f9440cc5a36d5fb22a.jpg",
+    "banner": "https://i.pinimg.com/originals/a3/30/8c/a3308c2100e2526873b3ae8b3ab47b57.gif",
     "roles": [
       "Propietario"
     ],
     "grupos": [
-      "Todos los grupos"
+      "Avisos"
     ],
     "links": []
   },
@@ -21,7 +21,7 @@
       "Fundador"
     ],
     "grupos": [
-      "Todos los grupos"
+      "Avisos"
     ],
     "links": [
       {
@@ -87,7 +87,7 @@
       "Moderador"
     ],
     "grupos": [
-      "Todos los gupos"
+      "GNU/Linux"
     ],
     "links": [
       {
@@ -105,7 +105,7 @@
       "Moderador"
     ],
     "grupos": [
-      "Todos los gupos"
+      "Casi todos los gupos"
     ],
     "links": []
   },
@@ -118,7 +118,7 @@
       "Moderador"
     ],
     "grupos": [
-      "Todos los gupos"
+      "Backend"
     ],
     "links": [
       {
@@ -154,6 +154,24 @@
     ]
   },
   {
+    "nombre": "Jesús Ramos",
+    "descripcion": "Backend Developer",
+    "foto": "img/jesus_ramos.jpeg",
+    "banner": "img/jesus_ramos_banner.gif",
+    "roles": [
+      "Moderador"
+    ],
+    "grupos": [
+      "GNU/Linux"
+    ],
+    "links": [
+      {
+        "tipo": "github",
+        "url": "https://github.com/jessec01"
+      }
+    ]
+  },
+  {
     "nombre": "Gregory Perozo",
     "descripcion": "Ingeniería de datos",
     "foto": "img/gregory_perozo.jpeg",
@@ -162,7 +180,7 @@
       "Moderador"
     ],
     "grupos": [
-      "Todos los grupos"
+      "Casi todos los grupos"
     ],
     "links": [
       {

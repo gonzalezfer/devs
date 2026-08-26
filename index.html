@@ -51,6 +51,14 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html, body {
+            height: 100%;
+            height: 100dvh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
         html {
             scroll-behavior: auto;
             touch-action: pan-x pan-y;
@@ -65,10 +73,26 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
             touch-action: pan-x pan-y;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+        }
+
+        .site-page-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+            width: 100%;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .site-page-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -91,23 +115,16 @@
             padding: 0 24px;
         }
 
-        /* Navbar */
+        /* Navbar (Permanece en la parte superior del contenido y se desplaza con la página) */
         .navbar {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
-            padding: 14px 0;
+            z-index: 100;
+            padding: 18px 0;
             background: transparent;
             border-bottom: 1px solid transparent;
-            transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            border-bottom: 1px solid #E2E8F0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
 
         .navbar::before {
@@ -182,13 +199,12 @@
             color: #0F172A;
         }
 
-        /* Hero Slider Section (100% de la altura de pantalla visible en móvil) */
+        /* Hero Slider Section (100% de la altura del contenedor visible) */
         .hero-slider-section {
             position: relative;
-            height: 100vh;
-            height: 100svh;
-            height: 100dvh;
-            min-height: 520px;
+            height: 100%;
+            min-height: 100%;
+            flex-shrink: 0;
             overflow: hidden;
             background: #0F172A;
             display: flex;
@@ -1940,10 +1956,8 @@
             }
 
             .hero-slider-section {
-                height: 100vh;
-                height: 100svh;
-                height: 100dvh;
-                min-height: 480px;
+                height: 100%;
+                min-height: 100%;
             }
 
             .hero-slide-content {
@@ -2018,10 +2032,756 @@
                 text-align: center;
             }
         }
+
+        /* ========================================================
+           FIXED BLACK BOTTOM BAR & CHATGPT-STYLE AI CHAT (Byte)
+           ======================================================== */
+        .ai-bottom-bar {
+            position: relative;
+            flex-shrink: 0;
+            width: 100%;
+            height: 52px;
+            background: #000000;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            z-index: 9999;
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+        }
+
+        .ai-bottom-bar-text-area {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            padding: 0 24px;
+            overflow: hidden;
+        }
+
+        .ai-bottom-bar-placeholder {
+            font-size: 0.86rem;
+            color: #A1A1AA;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.2s ease;
+        }
+
+        .ai-bottom-bar:hover .ai-bottom-bar-placeholder {
+            color: #E4E4E7;
+        }
+
+        .ai-bottom-bar-action {
+            height: 100%;
+            background: #FFFFFF;
+            color: #000000;
+            border: none;
+            border-radius: 0;
+            padding: 0 28px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            margin: 0;
+        }
+
+        .ai-bottom-bar-action:hover {
+            background: #E4E4E7;
+        }
+
+        .ai-bottom-bar-action i {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+        }
+
+        /* Chat Window (ChatGPT Inspired) */
+        .ai-chat-window {
+            position: fixed;
+            bottom: 60px;
+            right: 24px;
+            width: 430px;
+            max-width: calc(100vw - 32px);
+            height: 600px;
+            max-height: calc(100vh - 76px);
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.04);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(14px) scale(0.97);
+            transform-origin: bottom right;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: inherit;
+        }
+
+        .ai-chat-window.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Darkened Backdrop Overlay when Byte Chat is Open (Sin Blur) */
+        .ai-chat-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 52px;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            cursor: pointer;
+        }
+
+        .ai-chat-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Header (Ultra-Clean Typography Only) */
+        .ai-chat-header {
+            background: #FFFFFF;
+            color: #18181B;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .ai-header-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .ai-header-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #18181B;
+            letter-spacing: -0.02em;
+        }
+
+        .ai-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .ai-header-btn {
+            background: transparent;
+            border: none;
+            color: #71717A;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.15s ease;
+        }
+
+        .ai-header-btn:hover {
+            color: #18181B;
+            background: #F4F4F5;
+        }
+
+        /* Chat Body & Scroll Area */
+        .ai-chat-body {
+            flex: 1;
+            padding: 16px 18px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            background: #FFFFFF;
+            scroll-behavior: smooth;
+        }
+
+        /* Empty State / Welcome (ChatGPT Style) */
+        .ai-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px 10px;
+            margin: auto 0;
+        }
+
+        .ai-empty-title {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #18181B;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .ai-empty-desc {
+            font-size: 0.82rem;
+            color: #71717A;
+            max-width: 320px;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .ai-prompts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .ai-prompt-card {
+            background: #FAFAFA;
+            border: 1px solid #E5E7EB;
+            border-radius: 14px;
+            padding: 10px 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ai-prompt-card:hover {
+            background: #F4F4F5;
+            border-color: #D4D4D8;
+            transform: translateY(-1px);
+        }
+
+        .ai-prompt-card-icon {
+            font-size: 0.95rem;
+            color: #18181B;
+            margin-bottom: 2px;
+        }
+
+        .ai-prompt-card-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #18181B;
+        }
+
+        .ai-prompt-card-subtitle {
+            font-size: 0.7rem;
+            color: #71717A;
+            line-height: 1.3;
+        }
+
+        /* Message Rows */
+        .ai-msg-row {
+            display: flex;
+            width: 100%;
+        }
+
+        .ai-msg-row.user {
+            justify-content: flex-end;
+        }
+
+        .ai-msg-row.bot {
+            justify-content: flex-start;
+        }
+
+        .ai-msg-content-wrap {
+            display: flex;
+            flex-direction: column;
+            max-width: 90%;
+        }
+
+        .ai-msg-row.user .ai-msg-content-wrap {
+            max-width: 82%;
+        }
+
+        .ai-user-bubble {
+            background: #F4F4F5;
+            color: #18181B;
+            border-radius: 20px 20px 4px 20px;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            word-break: break-word;
+        }
+
+        .ai-bot-bubble {
+            color: #1F2937;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            word-break: break-word;
+            padding: 2px 0;
+        }
+
+        .ai-bot-bubble p {
+            margin: 0 0 10px 0;
+        }
+
+        .ai-bot-bubble p:last-child {
+            margin-bottom: 0;
+        }
+
+        .ai-bot-bubble strong {
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .ai-bot-bubble ul, .ai-bot-bubble ol {
+            margin: 6px 0 10px 20px;
+            padding: 0;
+        }
+
+        .ai-bot-bubble li {
+            margin-bottom: 6px;
+        }
+
+        /* Enhanced Action Links for WhatsApp and Drive */
+        .ai-wa-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(37, 211, 102, 0.1);
+            color: #0F8041 !important;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            border-radius: 8px;
+            padding: 3px 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none !important;
+            margin: 3px 2px;
+            transition: all 0.2s ease;
+        }
+
+        .ai-wa-link:hover {
+            background: #25D366;
+            color: #FFFFFF !important;
+            border-color: #25D366;
+        }
+
+        .ai-drive-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(37, 99, 235, 0.08);
+            color: #1D4ED8 !important;
+            border: 1px solid rgba(37, 99, 235, 0.25);
+            border-radius: 8px;
+            padding: 3px 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none !important;
+            margin: 3px 2px;
+            transition: all 0.2s ease;
+        }
+
+        .ai-drive-link:hover {
+            background: #2563EB;
+            color: #FFFFFF !important;
+            border-color: #2563EB;
+        }
+
+        .ai-generic-link {
+            color: #2563EB !important;
+            font-weight: 500;
+            text-decoration: underline;
+        }
+
+        /* Headings */
+        .ai-h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #09090B;
+            margin: 14px 0 6px;
+            letter-spacing: -0.015em;
+            line-height: 1.3;
+        }
+        .ai-h2 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #09090B;
+            margin: 12px 0 6px;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+        }
+        .ai-h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #18181B;
+            margin: 10px 0 4px;
+            line-height: 1.35;
+        }
+        .ai-h4 {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #3F3F46;
+            margin: 8px 0 4px;
+            line-height: 1.35;
+        }
+
+        /* Blockquotes / Citas */
+        .ai-quote {
+            margin: 10px 0;
+            padding: 10px 14px;
+            background: #F8FAFC;
+            border-left: 3px solid #18181B;
+            border-radius: 0 8px 8px 0;
+            color: #334155;
+            font-size: 0.85rem;
+            line-height: 1.45;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .ai-quote-icon {
+            color: #71717A;
+            font-size: 0.8rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Horizontal Rules */
+        .ai-hr {
+            border: none;
+            border-top: 1px solid #E4E4E7;
+            margin: 14px 0;
+        }
+
+        /* Modern Tables */
+        .ai-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 12px 0;
+            border: 1px solid #E4E4E7;
+            border-radius: 10px;
+            background: #FFFFFF;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .ai-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            text-align: left;
+        }
+        .ai-table th {
+            background: #18181B;
+            color: #FFFFFF;
+            font-weight: 600;
+            padding: 9px 12px;
+            border-bottom: 1px solid #27272A;
+            white-space: nowrap;
+            letter-spacing: -0.01em;
+        }
+        .ai-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #F4F4F5;
+            color: #27272A;
+            vertical-align: middle;
+        }
+        .ai-table tbody tr:nth-child(even) {
+            background: #FAFAFA;
+        }
+        .ai-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .ai-table tbody tr:hover td {
+            background: #F4F4F5;
+        }
+
+        /* Lists */
+        .ai-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 4px;
+            list-style: none;
+            padding-left: 2px;
+            line-height: 1.45;
+        }
+        .ai-list-item::before {
+            content: '•';
+            color: #18181B;
+            font-weight: bold;
+            font-size: 1.1rem;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+
+        .ai-num-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 4px;
+            list-style: none;
+            padding-left: 2px;
+            line-height: 1.45;
+        }
+        .ai-num-badge {
+            font-weight: 700;
+            color: #18181B;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        /* Tasks / Checklists */
+        .ai-task {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.86rem;
+            margin-bottom: 5px;
+            color: #27272A;
+        }
+        .ai-task i {
+            font-size: 0.95rem;
+            color: #A1A1AA;
+            flex-shrink: 0;
+        }
+        .ai-task.checked {
+            color: #0F766E;
+        }
+        .ai-task.checked i {
+            color: #0D9488;
+        }
+
+        /* Strikethrough */
+        .ai-del {
+            color: #A1A1AA;
+            text-decoration: line-through;
+        }
+
+        /* Code Blocks */
+        .ai-code-block {
+            background: #0F172A;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 8px 0;
+            border: 1px solid #1E293B;
+        }
+
+        .ai-code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 12px;
+            background: #1E293B;
+            color: #94A3B8;
+            font-size: 0.72rem;
+            font-family: monospace;
+        }
+
+        .ai-copy-btn {
+            background: transparent;
+            border: none;
+            color: #94A3B8;
+            cursor: pointer;
+            font-size: 0.72rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .ai-copy-btn:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-code-block pre {
+            margin: 0;
+            padding: 12px;
+            overflow-x: auto;
+            color: #E2E8F0;
+            font-family: 'Fira Code', monospace, Consolas;
+            font-size: 0.8rem;
+            line-height: 1.45;
+        }
+
+        .ai-inline-code {
+            background: #F4F4F5;
+            color: #E11D48;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.82rem;
+        }
+
+        /* Real-time Streaming Cursor */
+        .ai-streaming-cursor {
+            display: inline-block;
+            width: 7px;
+            height: 14px;
+            background: #18181B;
+            margin-left: 3px;
+            vertical-align: middle;
+            border-radius: 1px;
+            animation: aiCursorBlink 0.8s infinite;
+        }
+
+        @keyframes aiCursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Message Action Buttons */
+        .ai-msg-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .ai-msg-row.bot:hover .ai-msg-actions {
+            opacity: 1;
+        }
+
+        .ai-msg-action-btn {
+            background: transparent;
+            border: none;
+            color: #A1A1AA;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 3px 6px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .ai-msg-action-btn:hover {
+            color: #18181B;
+            background: #F4F4F5;
+        }
+
+        /* Input Container (ChatGPT Pill Style) */
+        .ai-chat-footer {
+            padding: 12px 16px 14px;
+            background: #FFFFFF;
+            border-top: 1px solid #F3F4F6;
+        }
+
+        .ai-chat-input-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #F4F4F5;
+            border: 1px solid #E4E4E7;
+            border-radius: 26px;
+            padding: 6px 8px 6px 16px;
+            transition: all 0.2s ease;
+        }
+
+        .ai-chat-input-pill:focus-within {
+            background: #FFFFFF;
+            border-color: #18181B;
+            box-shadow: 0 0 0 1px #18181B;
+        }
+
+        .ai-chat-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            color: #18181B;
+            outline: none;
+            padding: 6px 0;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .ai-chat-input::placeholder {
+            color: #A1A1AA;
+        }
+
+        .ai-chat-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .ai-chat-action-btn.send {
+            background: #18181B;
+            color: #FFFFFF;
+        }
+
+        .ai-chat-action-btn.send:disabled {
+            background: #E4E4E7;
+            color: #A1A1AA;
+            cursor: not-allowed;
+        }
+
+        .ai-chat-action-btn.stop {
+            background: #18181B;
+            color: #FFFFFF;
+        }
+
+        .ai-chat-action-btn.stop:hover {
+            transform: scale(1.06);
+            background: #EF4444;
+        }
+
+        .ai-chat-disclaimer {
+            font-size: 0.65rem;
+            color: #A1A1AA;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .ai-bottom-bar-placeholder {
+                font-size: 0.78rem;
+            }
+            .ai-bottom-bar-text-area {
+                padding: 0 14px;
+            }
+            .ai-bottom-bar-action {
+                padding: 0 18px;
+            }
+            .ai-chat-window {
+                bottom: 56px;
+                right: 8px;
+                left: 8px;
+                width: auto;
+                height: calc(100vh - 64px);
+                max-height: none;
+                border-radius: 16px;
+            }
+            .ai-prompts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- Main Scrollable Page Container (Layout Bounded Above Bottom Bar) -->
+    <div id="site-page-container" class="site-page-container">
 
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
@@ -2449,6 +3209,56 @@
                 </div>
             </div>
         </main>
+    </div>
+
+    </div><!-- /#site-page-container -->
+
+    <!-- Fixed Bottom Bar for Byte AI Assistant (Page Layout Bottom Limit) -->
+    <div id="ai-bottom-bar" class="ai-bottom-bar" onclick="toggleAIChat()">
+        <div class="ai-bottom-bar-text-area">
+            <span class="ai-bottom-bar-placeholder">Pregúntale sobre grupos de WhatsApp, recursos, networking o eventos...</span>
+        </div>
+        <button type="button" class="ai-bottom-bar-action" aria-label="Abrir chat con Byte">
+            <span class="ai-bottom-bar-btn-text">Preguntar</span>
+            <i class="fas fa-chevron-up" id="ai-bar-chevron"></i>
+        </button>
+    </div>
+
+    <!-- Darkened Backdrop Overlay (Sin Blur) -->
+    <div id="ai-chat-backdrop" class="ai-chat-backdrop" onclick="toggleAIChat()" aria-hidden="true"></div>
+
+    <!-- Chat Window Modal (ChatGPT Inspired) -->
+    <div id="ai-chat-window" class="ai-chat-window" role="dialog" aria-modal="true" aria-hidden="true">
+        <!-- Header (Ultra-Clean Typography Only) -->
+        <div class="ai-chat-header">
+            <div class="ai-header-info">
+                <span class="ai-header-title">Byte</span>
+            </div>
+            <div class="ai-header-actions">
+                <button class="ai-header-btn" onclick="clearAIChat()" title="Nuevo chat">
+                    <i class="far fa-pen-to-square"></i>
+                </button>
+                <button class="ai-header-btn" onclick="toggleAIChat()" title="Cerrar">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Messages Stream Area -->
+        <div class="ai-chat-body" id="ai-chat-messages">
+            <!-- Messages or empty state rendered dynamically -->
+        </div>
+
+        <!-- Input Footer -->
+        <div class="ai-chat-footer">
+            <form class="ai-chat-input-pill" id="ai-chat-form" onsubmit="handleAIChatSubmit(event)">
+                <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Pregúntale a Byte lo que sea..." autocomplete="off" oninput="handleAIChatInputChange()">
+                <button type="submit" id="ai-chat-action-btn" class="ai-chat-action-btn send" aria-label="Enviar mensaje">
+                    <i class="fas fa-arrow-up" id="ai-action-icon"></i>
+                </button>
+            </form>
+            <div class="ai-chat-disclaimer">Byte puede cometer errores. Información basada en la comunidad WWD.</div>
+        </div>
     </div>
 
     <!-- Scripts -->
@@ -3013,12 +3823,24 @@
             renderNetworkingFields(CAMPOS_DEFAULT);
             cargarConfiguracionNetworking();
 
+            window._WWD_DATA = {
+                carrusel: [],
+                grupos: [],
+                recursos: [],
+                admins: [],
+                colaboradores: [],
+                eventos: [],
+                faqs: []
+            };
+
             // === FETCH JSON DATA ===
             async function fetchData(file) {
                 try {
                     const response = await fetch(file + '.json?t=' + new Date().getTime());
                     if (!response.ok) throw new Error('Error de red al cargar ' + file);
-                    return await response.json();
+                    const data = await response.json();
+                    if (window._WWD_DATA) window._WWD_DATA[file] = data;
+                    return data;
                 } catch (error) {
                     console.error('Error cargando ' + file + '.json:', error);
                     return [];
@@ -3200,6 +4022,7 @@
             // === NAVBAR SCROLL TEXT CONTRAST ===
             const navbar = document.getElementById('navbar');
             const heroSlider = document.getElementById('hero-slider');
+            const pageContainer = document.getElementById('site-page-container');
 
             function handleNavbarScroll() {
                 if (!heroSlider || !navbar) return;
@@ -3212,6 +4035,9 @@
             }
 
             window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+            if (pageContainer) {
+                pageContainer.addEventListener('scroll', handleNavbarScroll, { passive: true });
+            }
             handleNavbarScroll();
 
 
@@ -3337,8 +4163,8 @@
                                 <h3 class="admin-name">${admin.nombre}</h3>
                                 <p class="admin-role">${admin.descripcion || 'Administrador'}</p>
                                 <div class="admin-tags">
-                                    ${(admin.roles || []).map(r => `<span class="admin-tag admin-tag-role"><i class="fas fa-shield-alt"></i>${r}</span>`).join('')}
-                                    ${(admin.grupos || []).map(g => `<span class="admin-tag admin-tag-group"><i class="fas fa-users"></i>${g}</span>`).join('')}
+                                    ${(admin.roles || []).filter(Boolean).map(r => `<span class="admin-tag admin-tag-role"><i class="fas fa-shield-alt"></i>${r}</span>`).join('')}
+                                    ${(admin.grupos || []).filter(Boolean).map(g => `<span class="admin-tag admin-tag-group"><i class="fas fa-users"></i>${g}</span>`).join('')}
                                 </div>
                                 <div class="admin-socials">
                                     ${getLink('github') ? `<a href="${getLink('github')}" target="_blank" class="admin-social" title="GitHub"><i class="fab fa-github"></i></a>` : ''}
@@ -3615,6 +4441,662 @@
                 e.preventDefault();
             }
         });
+
+        // ========================================================
+        // ASISTENTE DE CHAT CON IA (Byte — Streaming & ChatGPT UI)
+        // ========================================================
+        const OPENROUTER_API_KEY = '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';
+        const OPENROUTER_MODELS = [
+            'minimax/minimax-m3:free',
+            'nvidia/nemotron-3.5-lightning:free',
+            'poolside/laguna-s-2.1:free',
+            'deepseek/deepseek-chat'
+        ];
+
+        let aiChatOpen = false;
+        let aiChatHistory = [];
+        let aiIsGenerating = false;
+        let aiAbortController = null;
+
+        function toggleAIChat() {
+            aiChatOpen = !aiChatOpen;
+            const windowEl = document.getElementById('ai-chat-window');
+            const backdropEl = document.getElementById('ai-chat-backdrop');
+            const chevron = document.getElementById('ai-bar-chevron');
+
+            if (!windowEl) return;
+
+            if (aiChatOpen) {
+                windowEl.classList.add('open');
+                windowEl.setAttribute('aria-hidden', 'false');
+                if (backdropEl) {
+                    backdropEl.classList.add('active');
+                    backdropEl.setAttribute('aria-hidden', 'false');
+                }
+                if (chevron) chevron.className = 'fas fa-chevron-down';
+
+                if (aiChatHistory.length === 0) {
+                    renderAIWelcomeMessage();
+                }
+
+                setTimeout(() => {
+                    const inputEl = document.getElementById('ai-chat-input');
+                    if (inputEl) inputEl.focus();
+                }, 200);
+            } else {
+                windowEl.classList.remove('open');
+                windowEl.setAttribute('aria-hidden', 'true');
+                if (backdropEl) {
+                    backdropEl.classList.remove('active');
+                    backdropEl.setAttribute('aria-hidden', 'true');
+                }
+                if (chevron) chevron.className = 'fas fa-chevron-up';
+            }
+        }
+
+        function clearAIChat() {
+            if (aiIsGenerating) abortAIGeneration();
+            aiChatHistory = [];
+            renderAIWelcomeMessage();
+        }
+
+        function renderAIWelcomeMessage() {
+            const messagesContainer = document.getElementById('ai-chat-messages');
+            if (!messagesContainer) return;
+
+            messagesContainer.innerHTML = `
+                <div class="ai-empty-state">
+                    <div class="ai-empty-title">¿En qué puedo ayudarte hoy?</div>
+                    <div class="ai-empty-desc">Pregúntale a Byte sobre los grupos de WhatsApp, recursos de programación, networking o la comunidad.</div>
+                    
+                    <div class="ai-prompts-grid">
+                        <div class="ai-prompt-card" onclick="sendAIQuickPrompt('¿Cuáles son todos los grupos de WhatsApp disponibles y sus enlaces?')">
+                            <div class="ai-prompt-card-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="ai-prompt-card-title">Grupos de WhatsApp</div>
+                            <div class="ai-prompt-card-subtitle">Ver enlaces directos por tecnología</div>
+                        </div>
+                        <div class="ai-prompt-card" onclick="sendAIQuickPrompt('¿Cómo funcionan las sesiones de Networking de los viernes y cómo me inscribo?')">
+                            <div class="ai-prompt-card-icon"><i class="fas fa-laptop-code"></i></div>
+                            <div class="ai-prompt-card-title">Networking de los viernes</div>
+                            <div class="ai-prompt-card-subtitle">Presenta proyectos y recibe feedback</div>
+                        </div>
+                        <div class="ai-prompt-card" onclick="sendAIQuickPrompt('¿Qué carpetas de recursos gratuitos de estudio en Google Drive tienen?')">
+                            <div class="ai-prompt-card-icon"><i class="fas fa-folder-open"></i></div>
+                            <div class="ai-prompt-card-title">Recursos de estudio</div>
+                            <div class="ai-prompt-card-subtitle">Carpetas en Google Drive</div>
+                        </div>
+                        <div class="ai-prompt-card" onclick="sendAIQuickPrompt('¿Quiénes son los administradores y cuáles son las normas de la comunidad?')">
+                            <div class="ai-prompt-card-icon"><i class="fas fa-shield-halved"></i></div>
+                            <div class="ai-prompt-card-title">Equipo y Normas</div>
+                            <div class="ai-prompt-card-subtitle">Admins, roles y reglas</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesContainer.scrollTop = 0;
+        }
+
+        function sendAIQuickPrompt(promptText) {
+            const inputEl = document.getElementById('ai-chat-input');
+            if (inputEl) {
+                inputEl.value = promptText;
+                handleAIChatSubmit(new Event('submit'));
+            }
+        }
+
+        function handleAIChatInputChange() {
+            // Placeholder para futuras validaciones dinámicas
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function copyCode(btn) {
+            const block = btn.closest('.ai-code-block');
+            const pre = block ? block.querySelector('pre code') : null;
+            if (pre) {
+                navigator.clipboard.writeText(pre.textContent).then(() => {
+                    btn.innerHTML = '<i class="fas fa-check"></i> Copiado';
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="far fa-copy"></i> Copiar';
+                    }, 2000);
+                });
+            }
+        }
+
+        function copyMessageText(btn) {
+            const wrap = btn.closest('.ai-msg-content-wrap');
+            const bubble = wrap ? wrap.querySelector('.ai-bot-bubble') : null;
+            if (bubble) {
+                navigator.clipboard.writeText(bubble.innerText).then(() => {
+                    btn.innerHTML = '<i class="fas fa-check"></i> Copiado';
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="far fa-copy"></i>';
+                    }, 2000);
+                });
+            }
+        }
+
+        function formatAIMarkdown(rawText) {
+            if (!rawText) return '';
+
+            // 1. Proteger bloques de código ```lang\ncode\n```
+            const codeBlocks = [];
+            let text = rawText.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, function(match, lang, code) {
+                const id = `__CODE_BLOCK_${codeBlocks.length}__`;
+                const language = lang.trim() || 'código';
+                const escapedCode = escapeHtml(code.trim());
+                codeBlocks.push(
+                    `<div class="ai-code-block">` +
+                        `<div class="ai-code-header"><span>${escapeHtml(language)}</span><button type="button" onclick="copyCode(this)" class="ai-copy-btn"><i class="far fa-copy"></i> Copiar</button></div>` +
+                        `<pre><code>${escapedCode}</code></pre>` +
+                    `</div>`
+                );
+                return id;
+            });
+
+            // 2. Proteger código inline `code`
+            const inlineCodes = [];
+            text = text.replace(/`([^`\n]+)`/g, function(match, inlineCode) {
+                const id = `__INLINE_CODE_${inlineCodes.length}__`;
+                inlineCodes.push(`<code class="ai-inline-code">${escapeHtml(inlineCode)}</code>`);
+                return id;
+            });
+
+            // 3. Tablas Markdown (Procesador línea por línea robusto)
+            const lines = text.split('\n');
+            const processedLines = [];
+
+            const isSeparator = (line) => {
+                const stripped = line.trim().replace(/^\||\|$/g, '').trim();
+                if (!stripped) return false;
+                const parts = stripped.split('|').map(p => p.trim());
+                return parts.length > 0 && parts.every(p => /^:?-+:?$/.test(p));
+            };
+
+            const isTableRow = (line) => {
+                const stripped = line.trim();
+                return stripped.includes('|') && !stripped.startsWith('```');
+            };
+
+            const splitCells = (line) => {
+                let stripped = line.trim();
+                if (stripped.startsWith('|')) stripped = stripped.slice(1);
+                if (stripped.endsWith('|')) stripped = stripped.slice(0, -1);
+                return stripped.split('|').map(c => c.trim());
+            };
+
+            let i = 0;
+            while (i < lines.length) {
+                const line = lines[i];
+                if (isTableRow(line) && i + 1 < lines.length && isSeparator(lines[i + 1])) {
+                    const headers = splitCells(line);
+                    i += 2;
+                    const rows = [];
+                    while (i < lines.length && isTableRow(lines[i]) && !isSeparator(lines[i])) {
+                        if (lines[i].trim()) {
+                            rows.push(splitCells(lines[i]));
+                        }
+                        i++;
+                    }
+
+                    let tableHtml = '<div class="ai-table-wrapper"><table class="ai-table"><thead><tr>';
+                    headers.forEach(h => {
+                        tableHtml += `<th>${escapeHtml(h)}</th>`;
+                    });
+                    tableHtml += '</tr></thead><tbody>';
+
+                    rows.forEach(r => {
+                        tableHtml += '<tr>';
+                        headers.forEach((h, colIdx) => {
+                            const cellVal = r[colIdx] !== undefined ? r[colIdx] : '';
+                            tableHtml += `<td>${escapeHtml(cellVal)}</td>`;
+                        });
+                        tableHtml += '</tr>';
+                    });
+
+                    tableHtml += '</tbody></table></div>';
+                    processedLines.push(tableHtml);
+                } else {
+                    processedLines.push(escapeHtml(line));
+                    i++;
+                }
+            }
+
+            let html = processedLines.join('\n');
+
+            // 4. Citas / Blockquotes (> Cita o &gt; Cita)
+            html = html.replace(/(?:^|\n)&gt; (.*$)/gim, '<blockquote class="ai-quote"><i class="fas fa-quote-left ai-quote-icon"></i> <span>$1</span></blockquote>');
+
+            // 5. Líneas divisorias horizontales (---, ***, ___)
+            html = html.replace(/^(?:---|___|\*\*\*)$/gim, '<hr class="ai-hr">');
+
+            // 6. Checklists / Tareas (- [x] o - [ ])
+            html = html.replace(/^[\*\-] \[x\] (.*$)/gim, '<div class="ai-task checked"><i class="fas fa-check-square"></i> <span>$1</span></div>');
+            html = html.replace(/^[\*\-] \[ \] (.*$)/gim, '<div class="ai-task"><i class="far fa-square"></i> <span>$1</span></div>');
+
+            // 7. Títulos con encabezados (# H1, ## H2, ### H3, #### H4)
+            html = html.replace(/^#### (.*$)/gim, '<h5 class="ai-h4">$1</h5>');
+            html = html.replace(/^### (.*$)/gim, '<h4 class="ai-h3">$1</h4>');
+            html = html.replace(/^## (.*$)/gim, '<h3 class="ai-h2">$1</h3>');
+            html = html.replace(/^# (.*$)/gim, '<h2 class="ai-h1">$1</h2>');
+
+            // 8. Listas no ordenadas (*, -, +)
+            html = html.replace(/^[\*\-\+] (.*$)/gim, '<li class="ai-list-item">$1</li>');
+
+            // 9. Listas numeradas (1. Item, 2. Item)
+            html = html.replace(/^(\d+)\. (.*$)/gim, '<li class="ai-num-item" value="$1"><span class="ai-num-badge">$1.</span> $2</li>');
+
+            // 10. Links enriquecidos (WhatsApp, Drive, genéricos)
+            html = html.replace(/\[([^\]]+)\]\((https?:\/\/chat\.whatsapp\.com\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-wa-link"><i class="fab fa-whatsapp"></i> $1</a>');
+            html = html.replace(/\[([^\]]+)\]\((https?:\/\/drive\.google\.com\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-drive-link"><i class="fab fa-google-drive"></i> $1</a>');
+            html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-generic-link">$1 <i class="fas fa-external-link-alt" style="font-size:0.7em;"></i></a>');
+
+            // Auto-link standalone URLs not already in <a> tags
+            html = html.replace(/(^|[^">])(https?:\/\/chat\.whatsapp\.com\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-wa-link"><i class="fab fa-whatsapp"></i> Unirse al grupo</a>');
+            html = html.replace(/(^|[^">])(https?:\/\/drive\.google\.com\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-drive-link"><i class="fab fa-google-drive"></i> Ver carpeta</a>');
+            html = html.replace(/(^|[^">])(https?:\/\/(?!chat\.whatsapp\.com|drive\.google\.com)[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-generic-link">$2</a>');
+
+            // 11. Estilos de texto (Bold, Italic, Strikethrough)
+            html = html.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
+            html = html.replace(/___([^_]+)___/g, '<strong><em>$1</em></strong>');
+            html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+            html = html.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+            html = html.replace(/_([^_\n]+)_/g, '<em>$1</em>');
+            html = html.replace(/~~([^~]+)~~/g, '<del class="ai-del">$1</del>');
+
+            // 12. Salto de línea
+            html = html.replace(/\n/g, '<br>');
+
+            // Limpieza de saltos de línea innecesarios alrededor de bloques
+            html = html.replace(/(?:<br>)*(<div class="ai-table-wrapper">[\s\S]*?<\/div>)(?:<br>)*/g, '$1');
+            html = html.replace(/(?:<br>)*(<hr class="ai-hr">)(?:<br>)*/g, '$1');
+            html = html.replace(/(?:<br>)*(<blockquote class="ai-quote">[\s\S]*?<\/blockquote>)(?:<br>)*/g, '$1');
+
+            // 13. Restaurar bloques de código y código inline
+            inlineCodes.forEach((codeHtml, idx) => {
+                html = html.split(`__INLINE_CODE_${idx}__`).join(codeHtml);
+            });
+
+            codeBlocks.forEach((blockHtml, idx) => {
+                html = html.split(`__CODE_BLOCK_${idx}__`).join(blockHtml);
+            });
+
+            return html;
+        }
+
+        function appendUserMessage(text) {
+            const messagesContainer = document.getElementById('ai-chat-messages');
+            if (!messagesContainer) return;
+
+            if (messagesContainer.querySelector('.ai-empty-state')) {
+                messagesContainer.innerHTML = '';
+            }
+
+            const row = document.createElement('div');
+            row.className = 'ai-msg-row user';
+            row.innerHTML = `
+                <div class="ai-msg-content-wrap">
+                    <div class="ai-user-bubble">${escapeHtml(text)}</div>
+                </div>
+            `;
+            messagesContainer.appendChild(row);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function createBotMessagePlaceholder() {
+            const messagesContainer = document.getElementById('ai-chat-messages');
+            if (!messagesContainer) return null;
+
+            const row = document.createElement('div');
+            row.className = 'ai-msg-row bot';
+            row.innerHTML = `
+                <div class="ai-msg-content-wrap">
+                    <div class="ai-bot-bubble"><span class="ai-streaming-cursor"></span></div>
+                    <div class="ai-msg-actions" style="display:none;">
+                        <button type="button" class="ai-msg-action-btn" onclick="copyMessageText(this)" title="Copiar mensaje">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(row);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            return row;
+        }
+
+        function updateBotMessageContent(row, text, isFinal = false) {
+            if (!row) return;
+            const bubble = row.querySelector('.ai-bot-bubble');
+            const actions = row.querySelector('.ai-msg-actions');
+
+            if (bubble) {
+                if (isFinal) {
+                    bubble.innerHTML = formatAIMarkdown(text);
+                    if (actions) actions.style.display = 'flex';
+                } else {
+                    bubble.innerHTML = formatAIMarkdown(text) + '<span class="ai-streaming-cursor"></span>';
+                }
+            }
+
+            const messagesContainer = document.getElementById('ai-chat-messages');
+            if (messagesContainer) {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+
+        function abortAIGeneration() {
+            if (aiAbortController) {
+                aiAbortController.abort();
+                aiAbortController = null;
+            }
+            setGeneratingState(false);
+        }
+
+        function setGeneratingState(generating) {
+            aiIsGenerating = generating;
+            const actionBtn = document.getElementById('ai-chat-action-btn');
+            const icon = document.getElementById('ai-action-icon');
+            const input = document.getElementById('ai-chat-input');
+
+            if (generating) {
+                if (actionBtn) {
+                    actionBtn.className = 'ai-chat-action-btn stop';
+                    actionBtn.title = 'Detener generación';
+                }
+                if (icon) icon.className = 'fas fa-square';
+            } else {
+                if (actionBtn) {
+                    actionBtn.className = 'ai-chat-action-btn send';
+                    actionBtn.title = 'Enviar mensaje';
+                }
+                if (icon) icon.className = 'fas fa-arrow-up';
+                if (input) input.focus();
+            }
+        }
+
+        function getUserRealtimeContext() {
+            const now = new Date();
+            
+            // Zona horaria y localización del usuario
+            const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+            const userLocale = navigator.language || 'es-ES';
+            
+            // Mapeo detallado de zonas horarias a países de habla hispana y América
+            const timezoneToCountry = {
+                'America/Mexico_City': 'México (Centro)',
+                'America/Monterrey': 'México (Norte)',
+                'America/Cancun': 'México (Sureste)',
+                'America/Tijuana': 'México (Baja California)',
+                'America/Bogota': 'Colombia',
+                'America/Lima': 'Perú',
+                'America/Buenos_Aires': 'Argentina',
+                'America/Argentina/Cordoba': 'Argentina',
+                'America/Santiago': 'Chile',
+                'America/Caracas': 'Venezuela',
+                'America/La_Paz': 'Bolivia',
+                'America/Quito': 'Ecuador',
+                'America/Guayaquil': 'Ecuador',
+                'America/Asuncion': 'Paraguay',
+                'America/Montevideo': 'Uruguay',
+                'America/Santo_Domingo': 'República Dominicana',
+                'America/Guatemala': 'Guatemala',
+                'America/Tegucigalpa': 'Honduras',
+                'America/San_Salvador': 'El Salvador',
+                'America/Managua': 'Nicaragua',
+                'America/Costa_Rica': 'Costa Rica',
+                'America/Panama': 'Panamá',
+                'America/Havana': 'Cuba',
+                'America/Puerto_Rico': 'Puerto Rico',
+                'Europe/Madrid': 'España',
+                'Atlantic/Canary': 'España (Canarias)',
+                'America/New_York': 'Estados Unidos (Hora Este)',
+                'America/Chicago': 'Estados Unidos (Hora Centro)',
+                'America/Denver': 'Estados Unidos (Hora Montaña)',
+                'America/Los_Angeles': 'Estados Unidos (Hora Pacífico)'
+            };
+            
+            const country = timezoneToCountry[userTimezone] || (userTimezone.includes('/') ? userTimezone.split('/')[1].replace(/_/g, ' ') : userTimezone);
+            
+            // Offset UTC del usuario
+            const offsetMin = -now.getTimezoneOffset();
+            const offsetHours = Math.floor(Math.abs(offsetMin) / 60);
+            const offsetRemainingMin = Math.abs(offsetMin) % 60;
+            const offsetSign = offsetMin >= 0 ? '+' : '-';
+            const offsetStr = `UTC${offsetSign}${offsetHours.toString().padStart(2, '0')}:${offsetRemainingMin.toString().padStart(2, '0')}`;
+
+            // Fecha y hora local del usuario formateada
+            const userLocalDate = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const userLocalTime = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+
+            // Fecha y hora en Hora Centro USA (CST/CDT) - Referencia de la comunidad
+            let centralDate = '';
+            let centralTime = '';
+            try {
+                centralDate = now.toLocaleDateString('es-ES', { timeZone: 'America/Chicago', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                centralTime = now.toLocaleTimeString('es-ES', { timeZone: 'America/Chicago', hour: '2-digit', minute: '2-digit', hour12: true });
+            } catch(e) {
+                centralDate = userLocalDate;
+                centralTime = userLocalTime;
+            }
+
+            return {
+                nowIso: now.toISOString(),
+                userDate: userLocalDate,
+                userTime: userLocalTime,
+                userTimezone: userTimezone,
+                country: country,
+                offset: offsetStr,
+                centralDate: centralDate,
+                centralTime: centralTime,
+                userLocale: userLocale
+            };
+        }
+
+        function buildSystemPrompt() {
+            const data = window._WWD_DATA || {};
+            const ctx = getUserRealtimeContext();
+
+            let prompt = `Eres "Byte", el asistente oficial de Inteligencia Artificial de "World Wide Dev's" (WWD), una comunidad de programación, tecnología y desarrollo de software para Latinoamérica y todo el mundo hispanohablante.
+
+CONTEXTO TEMPORAL Y DE UBICACIÓN ACTUAL DEL USUARIO:
+- Fecha actual del usuario: ${ctx.userDate}
+- Hora actual del usuario: ${ctx.userTime} (${ctx.offset}, Zona horaria: ${ctx.userTimezone})
+- País / Región estimada del usuario: ${ctx.country}
+- Idioma preferido: ${ctx.userLocale}
+- Fecha y hora actual en la sede de la comunidad (Hora Centro USA / CST-CDT): ${ctx.centralDate}, ${ctx.centralTime}
+
+PAUTAS DE RESPUESTA Y FORMATO VISUAL OBLIGATORIO:
+1. TABLAS COMPARATIVAS Y RESÚMENES: Siempre que el usuario solicite un cuadro comparativo, tabla, resumen estructurado, lista o comparativa de cualquier tema (grupos, recursos, eventos, diferencias de lenguajes, etc.), DEBES generar OBLIGATORIAMENTE una TABLA MARKDOWN estándar completa con encabezados y separadores (ejemplo: | Columna 1 | Columna 2 |\\n| --- | --- |\\n| Fila 1 | Fila 2 |).
+2. ENCABEZADOS Y ESTRUCTURA: Emplea encabezados Markdown (## y ###) para jerarquizar los temas de manera visual.
+3. CITAS Y NOTAS: Usa citas con "> " para notas destacadas, advertencias o aclaraciones de interés.
+4. TAREAS Y CHECKLISTS: Usa listas con casillas de verificación "- [x] " y "- [ ] " para pasos o listas de tareas.
+5. Consciencia temporal activa: Tienes conocimiento exacto del día y la hora actual. Puedes calcular cuántos días u horas faltan para próximos eventos (ej. las sesiones de networking de los viernes a las 6:00 PM CST).
+6. Adaptación horaria: Si te preguntan por horarios de eventos, explica la hora en Hora Centro USA (referencia oficial) y también indícale la hora equivalente en la zona horaria del usuario (${ctx.userTimezone} / ${ctx.country}).
+7. Saludo contextual: Si saludas, utiliza el momento del día del usuario (buenos días / buenas tardes / buenas noches).
+8. Enlaces oficiales: Si te preguntan por grupos o recursos, proporciona SIEMPRE los enlaces en formato Markdown [Texto](URL).
+9. Responde de forma cordial, cercana, profesional, altamente visual y en español.
+
+BASE DE DATOS OFICIAL DE WORLD WIDE DEV'S:
+`;
+
+            if (Array.isArray(data.grupos) && data.grupos.length) {
+                prompt += `\n### GRUPOS DE WHATSAPP DISPONIBLES (${data.grupos.length} grupos):\n`;
+                data.grupos.forEach(g => {
+                    prompt += `- **${g.titulo}**: ${g.descripcion} (Idiomas: ${(g.idiomas || []).join(', ')}) -> Enlace: ${g.link}\n`;
+                });
+            }
+
+            if (Array.isArray(data.recursos) && data.recursos.length) {
+                prompt += `\n### RECURSOS Y MATERIALES DE ESTUDIO EN GOOGLE DRIVE:\n`;
+                data.recursos.forEach(r => {
+                    prompt += `- **${r.titulo}**: ${r.descripcion} -> Enlace: ${r.link}\n`;
+                });
+            }
+
+            if (Array.isArray(data.eventos) && data.eventos.length) {
+                prompt += `\n### EVENTOS PROGRAMADOS:\n`;
+                data.eventos.forEach(e => {
+                    prompt += `- **${e.titulo}**: ${e.descripcion} (Fecha: ${e.fecha_inicio}) -> Enlace: ${e.link}\n`;
+                });
+            }
+
+            if (Array.isArray(data.admins) && data.admins.length) {
+                prompt += `\n### EQUIPO ADMINISTRATIVO:\n`;
+                data.admins.forEach(a => {
+                    prompt += `- **${a.nombre}** (${a.descripcion || 'Admin'}): Roles [${(a.roles || []).join(', ')}] | Grupos [${(a.grupos || []).join(', ')}]\n`;
+                });
+            }
+
+            if (Array.isArray(data.colaboradores) && data.colaboradores.length) {
+                prompt += `\n### COLABORADORES DESTACADOS:\n`;
+                data.colaboradores.forEach(c => {
+                    prompt += `- **${c.nombre}**: ${c.descripcion} | Áreas: ${(c.grupos || []).join(', ')}\n`;
+                });
+            }
+
+            if (Array.isArray(data.faqs) && data.faqs.length) {
+                prompt += `\n### PREGUNTAS FRECUENTES Y NORMAS:\n`;
+                data.faqs.forEach(f => {
+                    prompt += `- P: ${f.pregunta}\n  R: ${f.respuesta}\n`;
+                });
+            }
+
+            return prompt;
+        }
+
+        async function streamFromOpenRouter(model, messagesPayload, signal, onChunk) {
+            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'HTTP-Referer': window.location.origin || 'https://worldwidedevs.com',
+                    'X-Title': 'World Wide Devs Byte AI',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: model,
+                    messages: messagesPayload,
+                    temperature: 0.7,
+                    max_tokens: 1000,
+                    stream: true
+                }),
+                signal: signal
+            });
+
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                throw new Error(errData.error?.message || `Status ${response.status}`);
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let accumulatedText = '';
+            let buffer = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop();
+
+                for (const line of lines) {
+                    const trimmed = line.trim();
+                    if (!trimmed || !trimmed.startsWith('data: ')) continue;
+                    if (trimmed === 'data: [DONE]') continue;
+
+                    try {
+                        const parsed = JSON.parse(trimmed.slice(6));
+                        const delta = parsed.choices?.[0]?.delta?.content || '';
+                        if (delta) {
+                            accumulatedText += delta;
+                            onChunk(accumulatedText);
+                        }
+                    } catch (e) {}
+                }
+            }
+
+            return accumulatedText;
+        }
+
+        async function handleAIChatSubmit(e) {
+            if (e) e.preventDefault();
+            if (aiIsGenerating) {
+                abortAIGeneration();
+                return;
+            }
+
+            const inputEl = document.getElementById('ai-chat-input');
+            if (!inputEl) return;
+
+            const userText = inputEl.value.trim();
+            if (!userText) return;
+
+            inputEl.value = '';
+            appendUserMessage(userText);
+            aiChatHistory.push({ role: 'user', content: userText });
+
+            setGeneratingState(true);
+            aiAbortController = new AbortController();
+
+            const botMsgRow = createBotMessagePlaceholder();
+            let accumulatedResponse = '';
+            let lastError = null;
+
+            try {
+                const systemPrompt = buildSystemPrompt();
+                const messagesPayload = [
+                    { role: 'system', content: systemPrompt },
+                    ...aiChatHistory.slice(-8)
+                ];
+
+                for (const model of OPENROUTER_MODELS) {
+                    try {
+                        accumulatedResponse = await streamFromOpenRouter(
+                            model,
+                            messagesPayload,
+                            aiAbortController.signal,
+                            (currentText) => {
+                                updateBotMessageContent(botMsgRow, currentText, false);
+                            }
+                        );
+
+                        if (accumulatedResponse) {
+                            break;
+                        }
+                    } catch (err) {
+                        if (err.name === 'AbortError') {
+                            break;
+                        }
+                        lastError = err;
+                        console.warn(`Streaming con ${model} falló:`, err.message);
+                    }
+                }
+
+                if (!accumulatedResponse && lastError && lastError.name !== 'AbortError') {
+                    throw lastError;
+                }
+
+                updateBotMessageContent(botMsgRow, accumulatedResponse || 'Respuesta detenida.', true);
+                if (accumulatedResponse) {
+                    aiChatHistory.push({ role: 'assistant', content: accumulatedResponse });
+                }
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error('Error en Byte IA:', err);
+                    updateBotMessageContent(botMsgRow, `⚠️ Lo siento, ocurrió un error: *${err.message || 'Error de conexión'}*. Por favor intenta nuevamente.`, true);
+                }
+            } finally {
+                setGeneratingState(false);
+                aiAbortController = null;
+            }
+        }
     </script>
 </body>
 
