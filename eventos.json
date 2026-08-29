@@ -6,5 +6,13 @@
     "imagen": "img/networking_ad.png",
     "color": "#010023",
     "link": "https://chat.whatsapp.com/CznayZtpbo47GnOlxiBvPS"
+  },
+  {
+    "titulo": "3° Aniversario",
+    "descripcion": "¡Celebramos 3 años de comunidad! Únete a este evento especial lleno de charlas, dinámicas, premios y sorpresas para todos los desarrolladores.",
+    "fecha_inicio": "2027-01-03T06:00:00",
+    "imagen": "img/3_aniversario_ad.png",
+    "color": "#033246",
+    "link": "https://chat.whatsapp.com/CznayZtpbo47GnOlxiBvPS"
   }
 ]
