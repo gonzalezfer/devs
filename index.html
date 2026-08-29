@@ -2475,6 +2475,21 @@
             font-weight: 700;
             color: #18181B;
             letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ai-header-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #F4F4F5;
+            color: #71717A;
+            border: 1px solid #E4E4E7;
+            padding: 2px 6px;
+            border-radius: 6px;
         }
 
         .ai-header-actions {
@@ -2495,6 +2510,7 @@
             justify-content: center;
             cursor: pointer;
             font-size: 0.9rem;
+            text-decoration: none;
             transition: all 0.15s ease;
         }
 
@@ -3756,12 +3772,12 @@
 
     </div><!-- /#site-page-container -->
 
-    <!-- Fixed Bottom Bar for Byte AI Assistant (Page Layout Bottom Limit) -->
+    <!-- Fixed Bottom Bar for Byte Mini AI Assistant (Page Layout Bottom Limit) -->
     <div id="ai-bottom-bar" class="ai-bottom-bar" onclick="toggleAIChat()">
         <div class="ai-bottom-bar-text-area">
-            <span class="ai-bottom-bar-placeholder">Pregúntale sobre grupos de WhatsApp, recursos, networking o eventos...</span>
+            <span class="ai-bottom-bar-placeholder">Pregúntale a Byte Mini sobre grupos de WhatsApp, recursos, networking o eventos...</span>
         </div>
-        <button type="button" class="ai-bottom-bar-action" aria-label="Abrir chat con Byte">
+        <button type="button" class="ai-bottom-bar-action" aria-label="Abrir chat con Byte Mini">
             <span class="ai-bottom-bar-btn-text">Preguntar</span>
             <i class="fas fa-chevron-up" id="ai-bar-chevron"></i>
         </button>
@@ -3775,9 +3791,12 @@
         <!-- Header (Ultra-Clean Typography Only) -->
         <div class="ai-chat-header">
             <div class="ai-header-info">
-                <span class="ai-header-title">Byte</span>
+                <span class="ai-header-title">Byte <span class="ai-header-badge">Mini</span></span>
             </div>
             <div class="ai-header-actions">
+                <a href="byte.html" target="_blank" class="ai-header-btn" title="Abrir Byte completo a pantalla completa" aria-label="Abrir Byte completo">
+                    <i class="fas fa-up-right-from-square"></i>
+                </a>
                 <button class="ai-header-btn" onclick="clearAIChat()" title="Nuevo chat">
                     <i class="far fa-pen-to-square"></i>
                 </button>
@@ -3795,12 +3814,12 @@
         <!-- Input Footer -->
         <div class="ai-chat-footer">
             <form class="ai-chat-input-pill" id="ai-chat-form" onsubmit="handleAIChatSubmit(event)">
-                <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Pregúntale a Byte lo que sea..." autocomplete="off" oninput="handleAIChatInputChange()">
+                <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Pregúntale a Byte Mini lo que sea..." autocomplete="off" oninput="handleAIChatInputChange()">
                 <button type="submit" id="ai-chat-action-btn" class="ai-chat-action-btn send" aria-label="Enviar mensaje">
                     <i class="fas fa-arrow-up" id="ai-action-icon"></i>
                 </button>
             </form>
-            <div class="ai-chat-disclaimer">Byte puede cometer errores. Información basada en la comunidad WWD.</div>
+            <div class="ai-chat-disclaimer">Byte Mini puede cometer errores. Información basada en la comunidad WWD.</div>
         </div>
     </div>
 
@@ -4390,7 +4409,7 @@
                 }
             }
 
-            // === LOAD HERO SHOWCASE SLIDER FROM CARRUSEL.JSON (6 SECONDS PER SLIDE) ===
+            // === LOAD HERO SHOWCASE SLIDER FROM CARRUSEL.JSON (15 SECONDS PER SLIDE) ===
             const slidesWrapper = document.getElementById('hero-slides-wrapper');
             const dotsWrapper = document.getElementById('hero-slider-dots');
             const progressBar = document.getElementById('hero-progress-bar');
@@ -4400,7 +4419,7 @@
             let slideInterval = null;
             let progressStartTime = 0;
             let progressAnimFrame = null;
-            const SLIDE_DURATION = 6000; // 6 segundos
+            const SLIDE_DURATION = 15000; // 15 segundos
 
             function renderSlides() {
                 if (!slidesWrapper) return;
@@ -5014,7 +5033,7 @@
             messagesContainer.innerHTML = `
                 <div class="ai-empty-state">
                     <div class="ai-empty-title">¿En qué puedo ayudarte hoy?</div>
-                    <div class="ai-empty-desc">Pregúntale a Byte sobre los grupos de WhatsApp, recursos de programación, networking o la comunidad.</div>
+                    <div class="ai-empty-desc">Pregúntale a Byte Mini sobre los grupos de WhatsApp, recursos de programación, networking o la comunidad.</div>
                     
                     <div class="ai-prompts-grid">
                         <div class="ai-prompt-card" onclick="sendAIQuickPrompt('¿Cuáles son todos los grupos de WhatsApp disponibles y sus enlaces?')">
@@ -5147,7 +5166,7 @@
             // 1. Proteger bloques de código ```lang\ncode\n```
             const codeBlocks = [];
             let text = rawText.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, function(match, lang, code) {
-                const id = `__CODE_BLOCK_${codeBlocks.length}__`;
+                const id = `@@@CODEBLOCK${codeBlocks.length}@@@`;
                 const language = lang.trim() || 'código';
                 const escapedCode = escapeHtml(code.trim());
                 codeBlocks.push(
@@ -5162,12 +5181,15 @@
             // 2. Proteger código inline `code`
             const inlineCodes = [];
             text = text.replace(/`([^`\n]+)`/g, function(match, inlineCode) {
-                const id = `__INLINE_CODE_${inlineCodes.length}__`;
+                const id = `@@@INLINECODE${inlineCodes.length}@@@`;
                 inlineCodes.push(`<code class="ai-inline-code">${escapeHtml(inlineCode)}</code>`);
                 return id;
             });
 
-            // 3. Tablas Markdown (Procesador línea por línea robusto)
+            // 3. Sanitizar todo el contenido restante para prevenir inyección HTML / XSS
+            text = escapeHtml(text);
+
+            // 4. Tablas Markdown (Procesador línea por línea robusto)
             const lines = text.split('\n');
             const processedLines = [];
 
@@ -5206,7 +5228,7 @@
 
                     let tableHtml = '<div class="ai-table-wrapper"><table class="ai-table"><thead><tr>';
                     headers.forEach(h => {
-                        tableHtml += `<th>${escapeHtml(h)}</th>`;
+                        tableHtml += `<th>${h}</th>`;
                     });
                     tableHtml += '</tr></thead><tbody>';
 
@@ -5214,7 +5236,7 @@
                         tableHtml += '<tr>';
                         headers.forEach((h, colIdx) => {
                             const cellVal = r[colIdx] !== undefined ? r[colIdx] : '';
-                            tableHtml += `<td>${escapeHtml(cellVal)}</td>`;
+                            tableHtml += `<td>${cellVal}</td>`;
                         });
                         tableHtml += '</tr>';
                     });
@@ -5222,36 +5244,36 @@
                     tableHtml += '</tbody></table></div>';
                     processedLines.push(tableHtml);
                 } else {
-                    processedLines.push(escapeHtml(line));
+                    processedLines.push(line);
                     i++;
                 }
             }
 
             let html = processedLines.join('\n');
 
-            // 4. Citas / Blockquotes (> Cita o &gt; Cita)
-            html = html.replace(/(?:^|\n)&gt; (.*$)/gim, '<blockquote class="ai-quote"><i class="fas fa-quote-left ai-quote-icon"></i> <span>$1</span></blockquote>');
+            // 5. Citas / Blockquotes (> Cita o &gt; Cita)
+            html = html.replace(/(?:^|\n)(?:>|&gt;) (.*$)/gim, '<blockquote class="ai-quote"><i class="fas fa-quote-left ai-quote-icon"></i> <span>$1</span></blockquote>');
 
-            // 5. Líneas divisorias horizontales (---, ***, ___)
+            // 6. Líneas divisorias horizontales (---, ***, ___)
             html = html.replace(/^(?:---|___|\*\*\*)$/gim, '<hr class="ai-hr">');
 
-            // 6. Checklists / Tareas (- [x] o - [ ])
+            // 7. Checklists / Tareas (- [x] o - [ ])
             html = html.replace(/^[\*\-] \[x\] (.*$)/gim, '<div class="ai-task checked"><i class="fas fa-check-square"></i> <span>$1</span></div>');
             html = html.replace(/^[\*\-] \[ \] (.*$)/gim, '<div class="ai-task"><i class="far fa-square"></i> <span>$1</span></div>');
 
-            // 7. Títulos con encabezados (# H1, ## H2, ### H3, #### H4)
+            // 8. Títulos con encabezados (# H1, ## H2, ### H3, #### H4)
             html = html.replace(/^#### (.*$)/gim, '<h5 class="ai-h4">$1</h5>');
             html = html.replace(/^### (.*$)/gim, '<h4 class="ai-h3">$1</h4>');
             html = html.replace(/^## (.*$)/gim, '<h3 class="ai-h2">$1</h3>');
             html = html.replace(/^# (.*$)/gim, '<h2 class="ai-h1">$1</h2>');
 
-            // 8. Listas no ordenadas (*, -, +)
+            // 9. Listas no ordenadas (*, -, +)
             html = html.replace(/^[\*\-\+] (.*$)/gim, '<li class="ai-list-item"><span class="ai-list-bullet">•</span>$1</li>');
 
-            // 9. Listas numeradas (1. Item, 2. Item)
+            // 10. Listas numeradas (1. Item, 2. Item)
             html = html.replace(/^(\d+)\. (.*$)/gim, '<li class="ai-num-item" value="$1"><span class="ai-num-badge">$1.</span>$2</li>');
 
-            // 10. Links enriquecidos (WhatsApp, Drive, genéricos)
+            // 11. Links enriquecidos (WhatsApp, Drive, genéricos)
             html = html.replace(/\[([^\]]+)\]\((https?:\/\/chat\.whatsapp\.com\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-wa-link"><i class="fab fa-whatsapp"></i> $1</a>');
             html = html.replace(/\[([^\]]+)\]\((https?:\/\/drive\.google\.com\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-drive-link"><i class="fab fa-google-drive"></i> $1</a>');
             html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-generic-link">$1 <i class="fas fa-external-link-alt" style="font-size:0.7em;"></i></a>');
@@ -5261,16 +5283,16 @@
             html = html.replace(/(^|[^">])(https?:\/\/drive\.google\.com\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-drive-link"><i class="fab fa-google-drive"></i> Ver carpeta</a>');
             html = html.replace(/(^|[^">])(https?:\/\/(?!chat\.whatsapp\.com|drive\.google\.com)[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer" class="ai-generic-link">$2</a>');
 
-            // 11. Estilos de texto (Bold, Italic, Strikethrough)
+            // 12. Estilos de texto (Bold, Italic, Strikethrough)
             html = html.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
             html = html.replace(/___([^_]+)___/g, '<strong><em>$1</em></strong>');
             html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
             html = html.replace(/__([^_]+)__/g, '<strong>$1</strong>');
             html = html.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
-            html = html.replace(/_([^_\n]+)_/g, '<em>$1</em>');
+            html = html.replace(/(?:^|\s)_([^_\n]+)_(?:\s|$)/g, ' <em>$1</em> ');
             html = html.replace(/~~([^~]+)~~/g, '<del class="ai-del">$1</del>');
 
-            // 12. Salto de línea
+            // 13. Salto de línea
             html = html.replace(/\n/g, '<br>');
 
             // Limpieza de saltos de línea innecesarios alrededor de bloques
@@ -5278,13 +5300,13 @@
             html = html.replace(/(?:<br>)*(<hr class="ai-hr">)(?:<br>)*/g, '$1');
             html = html.replace(/(?:<br>)*(<blockquote class="ai-quote">[\s\S]*?<\/blockquote>)(?:<br>)*/g, '$1');
 
-            // 13. Restaurar bloques de código y código inline
+            // 14. Restaurar bloques de código y código inline (escapados y seguros)
             inlineCodes.forEach((codeHtml, idx) => {
-                html = html.split(`__INLINE_CODE_${idx}__`).join(codeHtml);
+                html = html.split(`@@@INLINECODE${idx}@@@`).join(codeHtml);
             });
 
             codeBlocks.forEach((blockHtml, idx) => {
-                html = html.split(`__CODE_BLOCK_${idx}__`).join(blockHtml);
+                html = html.split(`@@@CODEBLOCK${idx}@@@`).join(blockHtml);
             });
 
             return html;
@@ -5463,7 +5485,7 @@
             const data = window._WWD_DATA || {};
             const ctx = getUserRealtimeContext();
 
-            let prompt = `Eres "Byte", el asistente oficial de Inteligencia Artificial de "World Wide Dev's" (WWD), una comunidad de programación, tecnología y desarrollo de software para Latinoamérica y todo el mundo hispanohablante.
+            let prompt = `Eres "Byte Mini", la versión rápida y compacta del asistente oficial de Inteligencia Artificial de "World Wide Dev's" (WWD), una comunidad de programación, tecnología y desarrollo de software para Latinoamérica y todo el mundo hispanohablante.
 
 CONTEXTO TEMPORAL Y DE UBICACIÓN ACTUAL DEL USUARIO:
 - Fecha actual del usuario: ${ctx.userDate}
@@ -5481,7 +5503,7 @@ PAUTAS DE RESPUESTA Y FORMATO VISUAL OBLIGATORIO:
 6. Adaptación horaria: Si te preguntan por horarios de eventos, explica la hora en Hora Centro USA (referencia oficial) y también indícale la hora equivalente en la zona horaria del usuario (${ctx.userTimezone} / ${ctx.country}).
 7. Saludo contextual: Si saludas, utiliza el momento del día del usuario (buenos días / buenas tardes / buenas noches).
 8. Enlaces oficiales: Si te preguntan por grupos o recursos, proporciona SIEMPRE los enlaces en formato Markdown [Texto](URL).
-9. Responde de forma cordial, cercana, profesional, altamente visual y en español.
+9. Responde de forma cordial, concisa, cercana, profesional, altamente visual y en español.
 
 BASE DE DATOS OFICIAL DE WORLD WIDE DEV'S:
 `;
@@ -5537,7 +5559,7 @@ BASE DE DATOS OFICIAL DE WORLD WIDE DEV'S:
                 headers: {
                     'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
                     'HTTP-Referer': window.location.origin || 'https://worldwidedevs.com',
-                    'X-Title': 'World Wide Devs Byte AI',
+                    'X-Title': 'World Wide Devs Byte Mini AI',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
